@@ -1,4 +1,21 @@
 .logo {
   width: 142px;
+  height: 33.4px;
+  margin: 0;
+  padding: 0;
   background-image: url('../../images/header/logo.svg');
+  background-size: cover;
+}
+
+@media screen and (max-width: 425px) {
+  .logo {
+    width: 103.74px;
+    height: 24.4px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .logo {
+    margin-left: 27px;
+  }
 }
