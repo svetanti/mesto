@@ -1,0 +1,19 @@
+.profile__button_action_edit {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../../../images/profile/btn_edit.svg');
+  background-position: center;
+  background-size: 10px 10px;
+  background-repeat: no-repeat;
+  border: 1px solid #fff;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+@media screen and (max-width: 980px) {
+  .profile__button_action_edit {
+    width: 18px;
+    height: 18px;
+    background-size: 7.5px 7.5px;
+  }
+}

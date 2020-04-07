@@ -1,0 +1,21 @@
+@import url('__avatar/profile__avatar.css');
+@import url('__info/profile__info.css');
+@import url('__name/profile__name.css');
+@import url('__about/profile__about.css');
+@import url('__button/profile__button.css');
+@import url('__button/_action/profile__button_action_edit.css');
+@import url('__button/_action/profile__button_action_add.css');
+
+.profile {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 425px) {
+  .profile {
+    flex-direction: column;
+  }
+}
