@@ -1,0 +1,26 @@
+@import url('__element/elements__element.css');
+@import url('__photo/elements__photo.css');
+@import url('__caption/elements__caption.css');
+@import url('__like/elements__like.css');
+
+.elements {
+  width: 100%;
+  padding: 47.25px 0 66px 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(218px, 1fr));
+  grid-column-gap: 18px;
+  grid-row-gap: 21px;
+}
+
+@media screen and (max-width: 768px) {
+  .elements {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .elements {
+    padding: 36px 0 48px 0;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

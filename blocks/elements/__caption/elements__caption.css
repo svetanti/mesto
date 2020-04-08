@@ -1,0 +1,17 @@
+.elements__caption {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: 25px 0 0 21px;
+  padding: 0;
+  grid-area: caption;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 980px) {
+  .elements__caption {
+    margin-top: 0;
+    align-self: center;
+  }
+}

@@ -1,0 +1,39 @@
+.elements__element {
+  width: 100%;
+  min-height: 361px;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  grid-template-columns: 1fr min-content;
+  grid-template-areas:
+    'photo photo'
+    'caption like';
+}
+
+@media screen and (max-width: 980px) {
+  .elements__element {
+    min-height: 36.837vw;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .elements__element {
+    min-height: 54.45vw;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .elements__element {
+    min-height: 110.11vw;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .elements__element {
+    min-height: 361px;
+  }
+}
+

@@ -1,0 +1,17 @@
+.elements__like {
+  width: 20.76px;
+  height: 18.13px;
+  margin: 31px 18.24px 0 0;
+  background-image: url('../../../images/elements/like.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  grid-area: like;
+  justify-self: end;
+}
+
+@media screen and (max-width: 980px) {
+  .elements__like {
+    margin-top: 0;
+    align-self: center;
+  }
+}
