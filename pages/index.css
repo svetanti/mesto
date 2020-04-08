@@ -6,6 +6,7 @@
 @import url('../blocks/main/main.css');
 @import url('../blocks/profile/profile.css');
 @import url('../blocks/elements/elemets.css');
+@import url('../blocks/footer/footer.css');
 
 .block {
   border: 1px solid red;
