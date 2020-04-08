@@ -1,9 +1,8 @@
-.profile__button {
-  background-color: #000;
+.popup__button {
   transition: opacity .7s ease;
 }
 
-.profile__button:hover {
+.popup__button:hover {
   opacity: .5;
   cursor: pointer;
 }
