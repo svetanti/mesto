@@ -2,9 +2,13 @@
   width: 100%;
   min-height: 361px;
   border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
   background-color: #fff;
   color: #000;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   display: grid;
   grid-template-rows: min-content 1fr;
   grid-template-columns: 1fr min-content;

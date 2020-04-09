@@ -5,6 +5,7 @@
   padding: 0;
   margin: 0 auto;
   box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   border: none;
   border-radius: 2px;
   background-color: #000;
@@ -17,4 +18,10 @@
 .popup__button_submit:hover {
   opacity: .8;
   cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .popup__button_submit {
+    width: 83%;
+  }
 }

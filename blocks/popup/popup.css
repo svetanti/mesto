@@ -4,19 +4,29 @@
 @import url('__heading/popup__heading.css');
 @import url('__input-container/popup__input-container.css');
 @import url('__input-item/popup__input-item.css');
-@import url('__input-item/popup__input-item.css');
 @import url('__button/_submit/popup__button_submit.css');
 
 .popup {
-  display: none;
   width: 430px;
-  height: 330px;
+  min-height: 330px;
   position: fixed;
   top: 195px;
   left: 50%;
   transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
   background-color: rgba(0, 0, 0, .5);
   border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  display: none;
+  z-index: 2;
 }
 
-@import url('_opened/popup_opened.css');
+@media screen and (max-width: 500px) {
+  .popup {
+    width: 86%;
+  }
+}
+

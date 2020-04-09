@@ -5,6 +5,15 @@
   width: 40.7px;
   height: 40.7px;
   position: absolute;
-  top: -33px;
-  right: -33px;
+  top: -30.7px;
+  right: -30.7px;
+}
+
+@media screen and (max-width: 500px) {
+  .popup__button_close {
+    width: 35px;
+    height: 35px;
+    top: -25px;
+    right: -25px;
+  }
 }

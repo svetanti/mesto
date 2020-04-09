@@ -11,24 +11,24 @@
   </head>
   <body>
     <div class="page">
-      <!--Дописать вендорные префиксы везде, где это надо-->
       <!--Попап-->
-      <div class="popup popup_opened">
+      <div class="popup">
         <div class="popup__button popup__button_close"></div>
         <form class="popup__container">
           <h2 class="popup__heading">Редактировать профиль</h2>
           <fieldset class="popup__input-container">
             <label for="userName"></label>
-            <input class="popup__input-item" id="userName" name="userName" placeholder="Имя">
+            <input class="popup__input-item popup__input-item_type_name" id="userName" name="userName" placeholder="Имя">
             <label for="aboutUser"></label>
-            <input class="popup__input-item" id="aboutUser" name="aboutUser" placeholder="О себе">
+            <input class="popup__input-item popup__input-item_type_about" id="aboutUser" name="aboutUser" placeholder="О себе">
           </fieldset>
-          <button class="popup__button popup__button_submit">Сохранить</button>
+          <button type="submit" class="popup__button popup__button_submit">Сохранить</button>
         </form>
       </div>
       <!--Секция header-->
       <header class="header">
         <div class="logo"></div>
+        <h1 class="header__heading">Место: интерактивный сервис для добавления фотографий</h1>
       </header>
       <!--Секция main-->
       <main class="main">
@@ -46,32 +46,32 @@
         <section class="elements">
           <div class="elements__element">
             <img src="images/elements/ruskeala.jpg" alt="Мраморный карьер Рускеала" class="elements__photo">
-              <p class="elements__caption">Рускеала</p>
+              <h2 class="elements__caption">Рускеала</h2>
               <span class="elements__like"></span>
           </div>
           <div class="elements__element">
             <img src="images/elements/vyborg.jpg" alt="Замок святого Олафа в Выборге" class="elements__photo">
-              <p class="elements__caption">Выборг</p>
+              <h2 class="elements__caption">Выборг</h2>
               <span class="elements__like"></span>
           </div>
           <div class="elements__element">
             <img src="images/elements/baikal.jpg" alt="Озеро Байкал" class="elements__photo">
-              <p class="elements__caption">Байкал</p>
+              <h2 class="elements__caption">Байкал</h2>
               <span class="elements__like"></span>
           </div>
           <div class="elements__element">
             <img src="images/elements/vladivostok.jpg" alt="Токаревский маяк во Владивостоке" class="elements__photo">
-              <p class="elements__caption">Владивосток</p>
+              <h2 class="elements__caption">Владивосток</h2>
               <span class="elements__like"></span>
           </div>
           <div class="elements__element">
             <img src="images/elements/altai.jpg" alt="Алтай Кай" class="elements__photo">
-              <p class="elements__caption">Алтай</p>
+              <h2 class="elements__caption">Алтай</h2>
               <span class="elements__like"></span>
           </div>
           <div class="elements__element">
             <img src="images/elements/sochi.jpg" alt="Сёрфинг в Сочи" class="elements__photo">
-              <p class="elements__caption">Сочи</p>
+              <h2 class="elements__caption">Сочи</h2>
               <span class="elements__like"></span>
           </div>
         </section>
@@ -81,5 +81,7 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
+  <script src="script.js"></script>
+
   </body>
 </html>

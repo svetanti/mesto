@@ -1,9 +1,12 @@
+@import url('__heading/header__heading.css');
+
 .header {
   max-width: 882px;
-  min-height: 74px;
+  height: 74px;
   margin: 0 auto;
-  padding: 45px 0 0;
+  padding: 44px 0 0;
   border-bottom: 1px solid rgba(84,84,84,.7);
+  position: relative;
 }
 
 @media screen and (max-width: 980px) {
@@ -14,8 +17,8 @@
 
 @media screen and (max-width: 425px) {
   .header {
-    height: 17.19vw;
-    padding-top: 8.75vw;
+    height: 56px;
+    padding-top: 27px;
   }
 }
 

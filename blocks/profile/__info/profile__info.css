@@ -1,6 +1,5 @@
 .profile__info {
   display: grid;
-  display: -ms-grid;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, min-content);
   grid-column-gap: 17px;
@@ -15,6 +14,6 @@
 
 @media screen and (max-width: 425px) {
   .profile__info {
-    grid-column-gap: 0;
+    grid-column-gap: 6px;
   }
 }

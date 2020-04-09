@@ -2,10 +2,9 @@
   width: 24px;
   height: 24px;
   background-image: url('../../../../images/profile/btn_edit.svg');
-  background-position: center;
   background-size: 10px 10px;
-  background-repeat: no-repeat;
   border: 1px solid #fff;
+  margin: 0;
   grid-column: 2;
   grid-row: 1;
 }

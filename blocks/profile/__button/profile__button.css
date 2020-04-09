@@ -1,4 +1,10 @@
 .profile__button {
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 0;
   background-color: #000;
   transition: opacity .7s ease;
 }
