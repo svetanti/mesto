@@ -2,22 +2,12 @@
   width: 358px;
   height: 52.15px;
   display: block;
-  padding: 0;
   margin: 0 auto;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  border: none;
-  border-radius: 2px;
   background-color: #000;
+  border-radius: 2px;
   color: #fff;
   font-size: 1.125rem;
   font-weight: normal;
-  transition: opacity .7s ease;
-}
-
-.popup__button_submit:hover {
-  opacity: .8;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 500px) {

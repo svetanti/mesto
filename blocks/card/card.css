@@ -1,4 +1,8 @@
-.elements__element {
+@import url('__photo/card__photo.css');
+@import url('__caption/card__caption.css');
+@import url('__like/card__like.css');
+
+.card {
   width: 100%;
   min-height: 361px;
   border-radius: 10px;
@@ -18,26 +22,25 @@
 }
 
 @media screen and (max-width: 980px) {
-  .elements__element {
+  .card {
     min-height: 36.837vw;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .elements__element {
+  .card {
     min-height: 54.45vw;
   }
 }
 
 @media screen and (max-width: 425px) {
-  .elements__element {
+  .card {
     min-height: 110.11vw;
   }
 }
 
 @media screen and (max-width: 320px) {
-  .elements__element {
+  .card {
     min-height: 361px;
   }
 }
-

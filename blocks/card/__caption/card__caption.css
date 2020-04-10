@@ -1,4 +1,4 @@
-.elements__caption {
+.card__caption {
   font-size: 1.5rem;
   font-weight: 900;
   margin: 25px 0 0 21px;
@@ -10,7 +10,7 @@
 }
 
 @media screen and (max-width: 980px) {
-  .elements__caption {
+  .card__caption {
     margin-top: 0;
     align-self: center;
   }
