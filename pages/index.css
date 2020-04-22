@@ -11,3 +11,7 @@
 @import url('../blocks/card/card.css');
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/popup/popup.css');
+
+.block {
+  border: 1px solid red;
+}
