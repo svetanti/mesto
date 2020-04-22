@@ -30,6 +30,7 @@
         </section>
         <!--Секция elements-->
         <section class="elements">
+          <!--
           <div class="card">
             <img src="images/card/ruskeala.jpg" alt="Мраморный карьер Рускеала" class="card__photo">
             <h2 class="card__caption">Рускеала</h2>
@@ -60,13 +61,14 @@
             <h2 class="card__caption">Сочи</h2>
             <button type="button" class="card__like"></button>
           </div>
+          -->
         </section>
       </main>
       <!--Секция footer-->
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
-      <!--Попап-->
+      <!--Попап userinfo-->
       <div class="popup popup_closed">
         <form class="popup__container">
           <button type="reset" class="button popup__button popup__button_close"></button>
@@ -81,6 +83,34 @@
         </form>
       </div>
     </div>
+  <!--Попап template-->
+  <template id="popupWindow">
+    <div class="popup popup_closed">
+      <form class="popup__container">
+        <button type="reset" class="button popup__button popup__button_close"></button>
+        <fieldset class="popup__input-container">
+          <legend class="popup__heading"></legend>
+          <label for="" class="visually-hidden"></label>
+          <input class="popup__input-item" id="" name="" placeholder="">
+          <label for="" class="visually-hidden"></label>
+          <input class="popup__input-item" id="" name="" placeholder="">
+        </fieldset>
+        <button type="submit" class="button popup__button popup__button_submit"></button>
+      </form>
+    </div>
+  </template>
+  <!--Card template-->
+  <template id="cardTemplate">
+    <div class="card">
+      <div class="card__container">
+        <img src="" alt="" class="card__photo">
+        <button type="button" class="card__delete"></button>
+      </div>
+      <h2 class="card__caption"></h2>
+      <button type="button" class="card__like"></button>
+    </div>
+  </template>
+  <!--Скрипт-->
   <script src="script.js"></script>
 
   </body>
