@@ -1,4 +1,5 @@
-const editButton = document.querySelector('.profile__button_action_edit');
+const editUserInfo = document.querySelector('.profile__button_action_edit');
+const editPhoto = document.querySelector('.profile__button_action_add');
 const popup = document.querySelector('.popup');
 const closeButton = document.querySelector('.popup__button_close');
 const inputUser = document.querySelector('#userName');
@@ -50,10 +51,64 @@ initialCards.forEach(function(item, index) {
 })
 
 
+const page = document.querySelector('.page');
+function popupOpen () {
+  const popupTemplate = document.querySelector('#popupTemplate').content;
+  const popupItem = popupTemplate.cloneNode(true);
+
+  popupItem.querySelector('.popup__heading').textContent = 'Новое место';
+  popupItem.querySelector('.popup__label_photo').for = 'inputPhoto';
+  popupItem.querySelector('.popup__label_link').for = 'inputLink';
+  popupItem.querySelector('.popup__input-item_photo').id = 'inputPhoto';
+  popupItem.querySelector('.popup__input-item_link').id = 'inputLink';
+  popupItem.querySelector('.popup__input-item_photo').name = 'inputPhoto';
+  popupItem.querySelector('.popup__input-item_link').name = 'inputLink';
+  popupItem.querySelector('.popup__input-item_photo').placeholder = 'Название';
+  popupItem.querySelector('.popup__input-item_link').placeholder = 'Ссылка на картинку';
+  popupItem.querySelector('.pup').placeholder = 'Создать';
+
+
+  page.append(popupItem);
+}
+
+popupOpen ();
+
+const popupTmp = document.querySelector('.popupTmp');
+
+function toggleAddPhoto() {
+  editPhoto.addEventListener('click', function() {
+    popupTmp.classList.add('popup_opened');
+    });
+  closeButton.addEventListener('click', function() {
+    popupTmp.classList.remove('popup_opened');
+    });
+}
+
+toggleAddPhoto();
+
+function toggleEditUserInfo() {
+  editUserInfo.addEventListener('click', function() {
+    popup.classList.add('popup_opened');
+    inputUser.setAttribute('value', profileName.textContent);
+    inputAbout.setAttribute('value', profileAbout.textContent);
+    });
+  closeButton.addEventListener('click', function() {
+    popup.classList.remove('popup_opened');
+    });
+}
 
 
 
 
+toggleEditUserInfo();
+
+
+
+
+
+
+
+/*
 
 
 
@@ -87,3 +142,5 @@ function formSubmitHandler (evt) {
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
+
+*/

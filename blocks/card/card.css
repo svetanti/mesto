@@ -16,6 +16,7 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   display: grid;
+  grid-column-gap: 10px;
   grid-template-rows: min-content 1fr;
   grid-template-columns: 1fr min-content;
   grid-template-areas:

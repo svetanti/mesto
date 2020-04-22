@@ -84,18 +84,18 @@
       </div>
     </div>
   <!--Попап template-->
-  <template id="popupWindow">
-    <div class="popup popup_closed">
+  <template id="popupTemplate">
+    <div class="popup popup_closed popupTmp">
       <form class="popup__container">
         <button type="reset" class="button popup__button popup__button_close"></button>
         <fieldset class="popup__input-container">
           <legend class="popup__heading"></legend>
-          <label for="" class="visually-hidden"></label>
-          <input class="popup__input-item" id="" name="" placeholder="">
-          <label for="" class="visually-hidden"></label>
-          <input class="popup__input-item" id="" name="" placeholder="">
+          <label for="" class="popup__label_photo visually-hidden"></label>
+          <input class="popup__input-item_photo" id="" name="" placeholder="">
+          <label for="" class="popup__label_link visually-hidden"></label>
+          <input class="popup__input-item_link" id="" name="" placeholder="">
         </fieldset>
-        <button type="submit" class="button popup__button popup__button_submit"></button>
+        <button type="submit" class="button popup__button popup__button_submit pup"></button>
       </form>
     </div>
   </template>
@@ -104,10 +104,10 @@
     <div class="card">
       <div class="card__container">
         <img src="" alt="" class="card__photo">
-        <button type="button" class="card__delete"></button>
+        <button type="button" class="card__delete button"></button>
       </div>
       <h2 class="card__caption"></h2>
-      <button type="button" class="card__like"></button>
+      <button type="button" class="card__like button"></button>
     </div>
   </template>
   <!--Скрипт-->
