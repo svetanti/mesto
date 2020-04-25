@@ -1,0 +1,8 @@
+@import url('__figure/photo__figure.css');
+@import url('__close/photo__close.css');
+@import url('__img/photo__img.css');
+@import url('__caption/photo__caption.css');
+
+.photo {
+  background-color: rgba(0, 0, 0, .9);
+}

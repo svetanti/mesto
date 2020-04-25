@@ -3,10 +3,12 @@
 @import url('__delete/card__delete.css');
 @import url('__caption/card__caption.css');
 @import url('__like/card__like.css');
+@import url('__like/_active/card__like_active.css');
 
 .card {
   width: 100%;
   min-height: 361px;
+  position: relative;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;

@@ -1,3 +1,5 @@
 .popup_opened {
-  display: block;
+  pointer-events: auto;
+  visibility: visible;
+  opacity: 1;
 }

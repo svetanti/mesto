@@ -1,146 +1,159 @@
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+//Открыть попап
+function opening(btn, popupType) {
+  btn.addEventListener('click', function() {
+    popupType.classList.add('popup_opened');
+  });
+}
+
+//Удалить класс
+function removeClass(popupType) {
+  popupType.classList.remove('popup_opened');
+}
+
+//Закрыть попап
+function closeByClick(closeBtn, popupType) {
+  closeBtn.addEventListener('click', function() {
+    removeClass(popupType);
+  });
+}
+
+//Открыть/закрыть imagePopup
+function toggleImagePopup() {
+  const zoomPhoto = document.querySelector('.card__container');
+  const imagePopup = document.querySelector('.photo');
+  const closePhoto = document.querySelector('.photo__close');
+  opening(zoomPhoto, imagePopup);
+  closeByClick(closePhoto, imagePopup);
+}
+
+//Лайк
+function likePhoto() {
+  const likeButton = document.querySelector('.card__like');
+  likeButton.addEventListener('click', function(evt) {
+    evt.target.classList.toggle('card__like_active');
+  });
+}
+
+//Удаление
+function deletePhoto() {
+  const deleteButton = document.querySelector('.card__delete');
+  deleteButton.addEventListener('click', function() {
+    const card = deleteButton.closest('.card');
+    card.remove();
+  });
+}
+
+//Добавить карточки
+const photoGallery = document.querySelector('.elements');
+function addCard (src, name) {
+  const cardTemplate = document.querySelector('#cardTemplate').content;
+  const cardItem = cardTemplate.cloneNode(true);
+  cardItem.querySelector('.card__photo').src = src;
+  cardItem.querySelector('.card__photo').alt = name;
+  cardItem.querySelector('.card__caption').textContent = name;
+
+  cardItem.querySelector('.photo__img').src = src;
+  cardItem.querySelector('.photo__img').alt = name;
+  cardItem.querySelector('.photo__caption').textContent = name;
+
+  photoGallery.prepend(cardItem);
+
+  likePhoto();
+  deletePhoto();
+  toggleImagePopup();
+}
+
+//Вывести карточки на страницу
+initialCards.forEach(function(item) {
+  addCard(item.link, item.name);
+});
+
+//Открыть photoPopup
+const addPhotoPopup = document.querySelector('#photoPopup');
+const addPhoto = document.querySelector('.profile__button_action_add');
+function openPhotoPopup() {
+  opening(addPhoto, addPhotoPopup);
+};
+
+//Открыть userPopup
+const userPopup = document.querySelector('#userPopup');
 const editUserInfo = document.querySelector('.profile__button_action_edit');
-const editPhoto = document.querySelector('.profile__button_action_add');
-const popup = document.querySelector('.popup');
-const closeButton = document.querySelector('.popup__button_close');
 const inputUser = document.querySelector('#userName');
 const inputAbout = document.querySelector('#aboutUser');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
 
-const photoGallery = document.querySelector('.elements');
+function openUserPopup() {
+  opening(editUserInfo, userPopup);
+  inputUser.setAttribute('value', profileName.textContent);
+  inputAbout.setAttribute('value', profileAbout.textContent);
+};
 
-const initialCards = [
-  {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-function addCard (src, name) {
-  const cardTemplate = document.querySelector('#cardTemplate').content;
-  const cardItem = cardTemplate.cloneNode(true);
-
-  cardItem.querySelector('.card__photo').src = src;
-  cardItem.querySelector('.card__caption').textContent = name;
-
-  photoGallery.prepend(cardItem);
+//Открыть/закрыть попап
+function togglePopup(popupFunc, popupType) {
+  popupFunc();
+  const closeButtons = document.querySelectorAll('.popup__button_close');
+  closeButtons.forEach(function(item) {
+    closeByClick(item, popupType);
+  });
 }
 
-initialCards.forEach(function(item, index) {
-  addCard(item.link, item.name);
-})
+togglePopup(openUserPopup, userPopup);
+togglePopup(openPhotoPopup, addPhotoPopup);
 
-
-const page = document.querySelector('.page');
-function popupOpen () {
-  const popupTemplate = document.querySelector('#popupTemplate').content;
-  const popupItem = popupTemplate.cloneNode(true);
-
-  popupItem.querySelector('.popup__heading').textContent = 'Новое место';
-  popupItem.querySelector('.popup__label_photo').for = 'inputPhoto';
-  popupItem.querySelector('.popup__label_link').for = 'inputLink';
-  popupItem.querySelector('.popup__input-item_photo').id = 'inputPhoto';
-  popupItem.querySelector('.popup__input-item_link').id = 'inputLink';
-  popupItem.querySelector('.popup__input-item_photo').name = 'inputPhoto';
-  popupItem.querySelector('.popup__input-item_link').name = 'inputLink';
-  popupItem.querySelector('.popup__input-item_photo').placeholder = 'Название';
-  popupItem.querySelector('.popup__input-item_link').placeholder = 'Ссылка на картинку';
-  popupItem.querySelector('.pup').placeholder = 'Создать';
-
-
-  page.append(popupItem);
+//Submit
+function submit(form, submitType) {
+  form.addEventListener('submit', submitType);
 }
 
-popupOpen ();
-
-const popupTmp = document.querySelector('.popupTmp');
-
-function toggleAddPhoto() {
-  editPhoto.addEventListener('click', function() {
-    popupTmp.classList.add('popup_opened');
-    });
-  closeButton.addEventListener('click', function() {
-    popupTmp.classList.remove('popup_opened');
-    });
-}
-
-toggleAddPhoto();
-
-function toggleEditUserInfo() {
-  editUserInfo.addEventListener('click', function() {
-    popup.classList.add('popup_opened');
-    inputUser.setAttribute('value', profileName.textContent);
-    inputAbout.setAttribute('value', profileAbout.textContent);
-    });
-  closeButton.addEventListener('click', function() {
-    popup.classList.remove('popup_opened');
-    });
-}
-
-
-
-
-toggleEditUserInfo();
-
-
-
-
-
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-function togglePopup() {
-  editButton.addEventListener('click', function() {
-    popup.classList.add('popup_opened');
-    inputUser.setAttribute('value', profileName.textContent);
-    inputAbout.setAttribute('value', profileAbout.textContent);
-    });
-  closeButton.addEventListener('click', function() {
-    popup.classList.remove('popup_opened');
-    });
-}
-
-togglePopup();
-
-let formElement = document.querySelector('.popup__container');
-
+//Submit для пользователя
+const formElement = document.querySelector('#userContainer');
 function formSubmitHandler (evt) {
     evt.preventDefault();
     profileName.textContent = inputUser.value;
     profileAbout.textContent = inputAbout.value;
-    popup.classList.remove('popup_opened');
+    removeClass(userPopup);
 }
 
-formElement.addEventListener('submit', formSubmitHandler);
+submit(formElement, formSubmitHandler);
 
-*/
+//Submit для фотографий
+const inputName = document.querySelector('#photoName');
+const inputLink = document.querySelector('#photoLink');
+const photoContainer = document.querySelector('#photoContainer');
+function formPhotoAdding (evt) {
+    evt.preventDefault();
+    addCard(inputLink.value, inputName.value);
+    removeClass(addPhotoPopup);
+    inputName.value = '';
+    inputLink.value = '';
+}
+
+submit(photoContainer, formPhotoAdding);

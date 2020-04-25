@@ -1,3 +1,8 @@
 .popup_closed {
-  display: none;
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s, opacity 1s ease-out;
 }

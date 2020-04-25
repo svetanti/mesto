@@ -1,0 +1,11 @@
+.button_close {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url('../../../images/button/close-icon.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  margin: 0;
+  position: absolute;
+}
+
+

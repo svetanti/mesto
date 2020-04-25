@@ -30,48 +30,16 @@
         </section>
         <!--Секция elements-->
         <section class="elements">
-          <!--
-          <div class="card">
-            <img src="images/card/ruskeala.jpg" alt="Мраморный карьер Рускеала" class="card__photo">
-            <h2 class="card__caption">Рускеала</h2>
-            <button type="button" class="button card__like"></button>
-          </div>
-          <div class="card">
-            <img src="images/card/vyborg.jpg" alt="Замок святого Олафа в Выборге" class="card__photo">
-            <h2 class="card__caption">Выборг</h2>
-            <button type="button" class="button card__like"></button>
-          </div>
-          <div class="card">
-            <img src="images/card/baikal.jpg" alt="Озеро Байкал" class="card__photo">
-            <h2 class="card__caption">Байкал</h2>
-            <button type="button" class="button card__like"></button>
-          </div>
-          <div class="card">
-            <img src="images/card/vladivostok.jpg" alt="Токаревский маяк во Владивостоке" class="card__photo">
-            <h2 class="card__caption">Владивосток</h2>
-            <button type="button" class="button card__like"></button>
-          </div>
-          <div class="card">
-            <img src="images/card/altai.jpg" alt="Алтай Кай" class="card__photo">
-            <h2 class="card__caption">Алтай</h2>
-            <button type="button" class="button card__like"></button>
-          </div>
-          <div class="card">
-            <img src="images/card/sochi.jpg" alt="Сёрфинг в Сочи" class="card__photo">
-            <h2 class="card__caption">Сочи</h2>
-            <button type="button" class="button card__like"></button>
-          </div>
-          -->
         </section>
       </main>
       <!--Секция footer-->
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
-      <!--Попап userinfo-->
-      <div class="popup popup_closed">
-        <form class="popup__container">
-          <button type="reset" class="button popup__button popup__button_close"></button>
+      <!--Попап userInfo-->
+      <div class="popup popup_closed" id="userPopup">
+        <form class="popup__container" id="userContainer">
+          <button type="reset" class="button button_close popup__button popup__button_close"></button>
           <fieldset class="popup__input-container">
             <legend class="popup__heading">Редактировать профиль</legend>
             <label for="userName" class="visually-hidden">Имя пользователя</label>
@@ -82,32 +50,37 @@
           <button type="submit" class="button popup__button popup__button_submit">Сохранить</button>
         </form>
       </div>
+      <!--Попап addPhoto-->
+      <div class="popup popup_closed" id="photoPopup">
+        <form class="popup__container" id="photoContainer">
+          <button type="reset" class="button button_close popup__button popup__button_close"></button>
+          <fieldset class="popup__input-container">
+            <legend class="popup__heading">Новое место</legend>
+            <label for="photoName" class="visually-hidden">Название</label>
+            <input class="popup__input-item" id="photoName" name="photoName" placeholder="Название">
+            <label for="photoLink" class="visually-hidden">Ссылка на картинку</label>
+            <input class="popup__input-item" id="photoLink" name="photoLink" placeholder="Ссылка на картинку">
+          </fieldset>
+          <button type="submit" class="button popup__button popup__button_submit">Создать</button>
+        </form>
+      </div>
     </div>
-  <!--Попап template-->
-  <template id="popupTemplate">
-    <div class="popup popup_closed popupTmp">
-      <form class="popup__container">
-        <button type="reset" class="button popup__button popup__button_close"></button>
-        <fieldset class="popup__input-container">
-          <legend class="popup__heading"></legend>
-          <label for="" class="popup__label_photo visually-hidden"></label>
-          <input class="popup__input-item_photo" id="" name="" placeholder="">
-          <label for="" class="popup__label_link visually-hidden"></label>
-          <input class="popup__input-item_link" id="" name="" placeholder="">
-        </fieldset>
-        <button type="submit" class="button popup__button popup__button_submit pup"></button>
-      </form>
-    </div>
-  </template>
   <!--Card template-->
   <template id="cardTemplate">
     <div class="card">
+      <button type="button" class="card__delete button"></button>
       <div class="card__container">
         <img src="" alt="" class="card__photo">
-        <button type="button" class="card__delete button"></button>
       </div>
       <h2 class="card__caption"></h2>
       <button type="button" class="card__like button"></button>
+    </div>
+    <div class="photo popup popup_closed" id="imagePopup">
+      <figure class="photo__figure">
+      <button type="reset" class="photo__close button button_close"></button>
+      <img class="photo__img" src="" alt="">
+      <figcaption class="photo__caption"></figcaption>
+      </figure>
     </div>
   </template>
   <!--Скрипт-->

@@ -1,15 +1,15 @@
-.popup__button_close {
-  width: 57px;
-  height: 57px;
+.photo__close {
+  width: 56px;
+  height: 56px;
   top: -45px;
   right: -45px;
 }
 
 @media screen and (max-width: 500px) {
-  .popup__button_close {
+  .photo__close {
     width: 42px;
     height: 42px;
-    top: -32px;
-    right: -32px;
+    top: -34px;
+    right: -34px;
   }
 }

@@ -2,8 +2,12 @@
   width: 430px;
   min-height: 330px;
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   left: 50%;
   top: 50%;
+  line-height: 1;
   transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
@@ -27,6 +31,7 @@
 
 @media screen and (max-width: 500px) {
   .popup__container {
-    width: 86%;
+    max-width: 75vw;
+    min-height: 258px;
   }
 }
