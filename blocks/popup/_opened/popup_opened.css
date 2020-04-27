@@ -1,4 +1,6 @@
 .popup_opened {
+  position: fixed;
+  z-index: 2;
   pointer-events: auto;
   visibility: visible;
   opacity: 1;

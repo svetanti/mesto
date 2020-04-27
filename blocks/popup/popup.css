@@ -5,19 +5,21 @@
 @import url('__input-container/popup__input-container.css');
 @import url('__input-item/popup__input-item.css');
 @import url('__button/_submit/popup__button_submit.css');
-@import url('_closed/popup_closed.css');
-@import url('_opened/popup_opened.css');
 
 .popup {
   width: 100%;
   height: 100%;
   display: flex;
-  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, .5);
-  z-index: 2;
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s, opacity 1s ease-out;
 }
 

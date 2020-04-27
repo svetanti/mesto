@@ -29,62 +29,62 @@
           <button type="button" class="button profile__button profile__button_action_add"></button>
         </section>
         <!--Секция elements-->
-        <section class="elements">
-        </section>
+        <ul class="elements">
+        </ul>
       </main>
       <!--Секция footer-->
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
-      <!--Попап userInfo-->
-      <div class="popup popup_closed" id="userPopup">
-        <form class="popup__container" id="userContainer">
+      <!--Попап userForm-->
+      <div class="popup" id="user-popup">
+        <form class="popup__container" id="user-container">
           <button type="reset" class="button button_close popup__button popup__button_close"></button>
           <fieldset class="popup__input-container">
             <legend class="popup__heading">Редактировать профиль</legend>
-            <label for="userName" class="visually-hidden">Имя пользователя</label>
-            <input class="popup__input-item" id="userName" name="userName" placeholder="Имя">
-            <label for="aboutUser" class="visually-hidden">Информация о пользователе</label>
-            <input class="popup__input-item" id="aboutUser" name="aboutUser" placeholder="О себе">
+            <label for="user-name" class="visually-hidden">Имя пользователя</label>
+            <input class="popup__input-item" id="user-name" name="user-name" placeholder="Имя" required>
+            <label for="user-info" class="visually-hidden">Информация о пользователе</label>
+            <input class="popup__input-item" id="user-info" name="user-info" placeholder="О себе" required>
           </fieldset>
           <button type="submit" class="button popup__button popup__button_submit">Сохранить</button>
         </form>
       </div>
-      <!--Попап addPhoto-->
-      <div class="popup popup_closed" id="photoPopup">
-        <form class="popup__container" id="photoContainer">
+      <!--Попап photoForm-->
+      <div class="popup" id="photo-popup">
+        <form class="popup__container" id="photo-container">
           <button type="reset" class="button button_close popup__button popup__button_close"></button>
           <fieldset class="popup__input-container">
             <legend class="popup__heading">Новое место</legend>
-            <label for="photoName" class="visually-hidden">Название</label>
-            <input class="popup__input-item" id="photoName" name="photoName" placeholder="Название">
-            <label for="photoLink" class="visually-hidden">Ссылка на картинку</label>
-            <input class="popup__input-item" id="photoLink" name="photoLink" placeholder="Ссылка на картинку">
+            <label for="photo-name" class="visually-hidden">Название</label>
+            <input class="popup__input-item" id="photo-name" name="photo-name" placeholder="Название" required>
+            <label for="photo-link" class="visually-hidden">Ссылка на картинку</label>
+            <input class="popup__input-item" id="photo-link" name="photo-link" placeholder="Ссылка на картинку" required>
           </fieldset>
           <button type="submit" class="button popup__button popup__button_submit">Создать</button>
         </form>
       </div>
     </div>
-  <!--Card template-->
-  <template id="cardTemplate">
-    <div class="card">
-      <button type="button" class="card__delete button"></button>
-      <div class="card__container">
-        <img src="" alt="" class="card__photo">
-      </div>
-      <h2 class="card__caption"></h2>
-      <button type="button" class="card__like button"></button>
-    </div>
-    <div class="photo popup popup_closed" id="imagePopup">
+    <!--Попап imagePopup-->
+    <div class="photo popup" id="image-popup">
       <figure class="photo__figure">
       <button type="reset" class="photo__close button button_close"></button>
       <img class="photo__img" src="" alt="">
       <figcaption class="photo__caption"></figcaption>
       </figure>
     </div>
+  <!--Card template-->
+  <template id="card-template">
+    <li class="card">
+      <button type="button" class="card__delete button"></button>
+      <div class="card__container">
+        <img src="" alt="" class="card__photo">
+      </div>
+      <h2 class="card__caption"></h2>
+      <button type="button" class="card__like button"></button>
+    </li>
   </template>
   <!--Скрипт-->
   <script src="script.js"></script>
-
   </body>
 </html>
