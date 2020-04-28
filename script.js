@@ -74,35 +74,27 @@ function deletePhoto(evt) {
 
 cardList.addEventListener('click', deletePhoto);
 
-//Добавить класс
-function addClass(popup) {
-  popup.classList.add('popup_opened');
+//Поменять класс
+function toggleModalWindow(popup) {
+  popup.classList.toggle('popup_opened');
 }
 
-//Удалить класс
-function removeClass(popup) {
-  popup.classList.remove('popup_opened');
-}
-
-//Открыть попап
-function openPopup(btn, popup) {
-  btn.addEventListener('click', function() {
-    popup.classList.add('popup_opened');
+//Открыть/закрыть любой попап
+const closeButtons = document.querySelectorAll('.button_close');
+function setTogglePopupHandlers(popupFunc, popup) {
+  popupFunc();
+  closeButtons.forEach(function(item) {
+    item.addEventListener('click', function() {
+    popup.classList.remove('popup_opened');
   });
-}
-
-//Закрыть попап
-function closeByClick(closeBtn, popup) {
-  closeBtn.addEventListener('click', function() {
-    removeClass(popup);
-  });
+});
 }
 
 //Открыть imagePopup
 const imagePopup = document.querySelector('#image-popup');
 const photoBig = imagePopup.querySelector('.photo__img');
 const photoBigCaption = imagePopup.querySelector('.photo__caption');
-function openImagePopup() {
+function setOpenImagePopupHandler() {
   cardList.addEventListener('click', function(evt) {
     if (!evt.target.matches('.card__photo')) {
       return;
@@ -114,28 +106,12 @@ function openImagePopup() {
       photoBig.src = imageToZoom.src;
       photoBig.alt = caption.textContent;
       photoBigCaption.textContent = caption.textContent;
-      addClass(imagePopup);
+      toggleModalWindow(imagePopup);
     }
   });
 }
 
-//Открыть/закрыть imagePopup
-const photoCloseButtons = document.querySelectorAll('.photo__close');
-function toggleImagePopup() {
-  openImagePopup();
-  photoCloseButtons.forEach(function(item) {
-    closeByClick(item, imagePopup);
-  });
-}
-
-toggleImagePopup();
-
-//Открыть photoForm
-const photoForm = document.querySelector('#photo-popup');
-const buttonAddPhoto = document.querySelector('.profile__button_action_add');
-function openPhotoPopup() {
-  openPopup(buttonAddPhoto, photoForm);
-};
+setTogglePopupHandlers(setOpenImagePopupHandler, imagePopup);
 
 //Открыть userForm
 const userForm = document.querySelector('#user-popup');
@@ -144,27 +120,29 @@ const userName = document.querySelector('#user-name');
 const userInfo = document.querySelector('#user-info');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
-
-function openUserForm() {
-  openPopup(buttonEditUserInfo, userForm);
-  userName.setAttribute('value', profileName.textContent);
-  userInfo.setAttribute('value', profileAbout.textContent);
+function setOpenUserPopupHandler() {
+  buttonEditUserInfo.addEventListener('click', function() {
+    toggleModalWindow(userForm);
+  });
+  userName.value = profileName.textContent;
+  userInfo.value = profileAbout.textContent;
 };
 
-//Открыть/закрыть попап
-function togglePopup(popupFunc, popup) {
-  popupFunc();
-  const closeButtons = document.querySelectorAll('.popup__button_close');
-  closeButtons.forEach(function(item) {
-    closeByClick(item, popup);
-  });
-}
+setTogglePopupHandlers(setOpenUserPopupHandler, userForm);
 
-togglePopup(openUserForm, userForm);
-togglePopup(openPhotoPopup, photoForm);
+//Открыть photoForm
+const photoForm = document.querySelector('#photo-popup');
+const buttonAddPhoto = document.querySelector('.profile__button_action_add');
+function setOpenPhotoPopupHandler() {
+  buttonAddPhoto.addEventListener('click', function() {
+    toggleModalWindow(photoForm);
+  });
+};
+
+setTogglePopupHandlers(setOpenPhotoPopupHandler, photoForm);
 
 //Submit
-function submit(form, submitType) {
+function setSubmitHandler(form, submitType) {
   form.addEventListener('submit', submitType);
 }
 
@@ -174,10 +152,10 @@ function submitUserForm (evt) {
     evt.preventDefault();
     profileName.textContent = userName.value;
     profileAbout.textContent = userInfo.value;
-    removeClass(userForm);
+    toggleModalWindow(userForm);
 }
 
-submit(userContainer, submitUserForm);
+setSubmitHandler(userContainer, submitUserForm);
 
 //Submit для фотографий
 const photoName = document.querySelector('#photo-name');
@@ -190,9 +168,9 @@ function submitPhotoForm (evt) {
       link: photoLink.value
     };
     insertCard(cardAddedByUser);
-    removeClass(photoForm);
+    toggleModalWindow(photoForm);
     photoName.value = '';
     photoLink.value = '';
 }
 
-submit(photoContainer, submitPhotoForm);
+setSubmitHandler(photoContainer, submitPhotoForm);

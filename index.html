@@ -36,6 +36,14 @@
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
+      <!--Попап imagePopup-->
+      <div class="photo popup" id="image-popup">
+        <figure class="photo__figure">
+        <button type="reset" class="photo__close button button_close"></button>
+        <img class="photo__img" src="" alt="">
+        <figcaption class="photo__caption"></figcaption>
+        </figure>
+      </div>
       <!--Попап userForm-->
       <div class="popup" id="user-popup">
         <form class="popup__container" id="user-container">
@@ -64,14 +72,6 @@
           <button type="submit" class="button popup__button popup__button_submit">Создать</button>
         </form>
       </div>
-    </div>
-    <!--Попап imagePopup-->
-    <div class="photo popup" id="image-popup">
-      <figure class="photo__figure">
-      <button type="reset" class="photo__close button button_close"></button>
-      <img class="photo__img" src="" alt="">
-      <figcaption class="photo__caption"></figcaption>
-      </figure>
     </div>
   <!--Card template-->
   <template id="card-template">
