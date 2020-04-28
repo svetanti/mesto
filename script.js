@@ -80,14 +80,12 @@ function toggleModalWindow(popup) {
 }
 
 //Открыть/закрыть любой попап
-const closeButtons = document.querySelectorAll('.button_close');
-function setTogglePopupHandlers(popupFunc, popup) {
-  popupFunc();
-  closeButtons.forEach(function(item) {
-    item.addEventListener('click', function() {
-    popup.classList.remove('popup_opened');
+function setTogglePopupHandlers(setOpenPopupHandler, popup) {
+  setOpenPopupHandler();
+  const buttonClose = popup.querySelector('.button_close');
+  buttonClose.addEventListener('click', function() {
+    toggleModalWindow(popup);
   });
-});
 }
 
 //Открыть imagePopup
@@ -120,30 +118,30 @@ const userName = document.querySelector('#user-name');
 const userInfo = document.querySelector('#user-info');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
-function setOpenUserPopupHandler() {
+function setOpenUserFormPopupHandler() {
   buttonEditUserInfo.addEventListener('click', function() {
     toggleModalWindow(userForm);
+    userName.value = profileName.textContent;
+    userInfo.value = profileAbout.textContent;
   });
-  userName.value = profileName.textContent;
-  userInfo.value = profileAbout.textContent;
 };
 
-setTogglePopupHandlers(setOpenUserPopupHandler, userForm);
+setTogglePopupHandlers(setOpenUserFormPopupHandler, userForm);
 
 //Открыть photoForm
 const photoForm = document.querySelector('#photo-popup');
 const buttonAddPhoto = document.querySelector('.profile__button_action_add');
-function setOpenPhotoPopupHandler() {
+function setOpenPhotoFormPopupHandler() {
   buttonAddPhoto.addEventListener('click', function() {
     toggleModalWindow(photoForm);
   });
 };
 
-setTogglePopupHandlers(setOpenPhotoPopupHandler, photoForm);
+setTogglePopupHandlers(setOpenPhotoFormPopupHandler, photoForm);
 
 //Submit
-function setSubmitHandler(form, submitType) {
-  form.addEventListener('submit', submitType);
+function setSubmitHandler(form, submitHandler) {
+  form.addEventListener('submit', submitHandler);
 }
 
 //Submit для пользователя
