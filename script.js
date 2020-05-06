@@ -50,7 +50,7 @@ initialCards.forEach(function(item) {
 
 //Лайк
 const cardList = document.querySelector('.elements');
-function likePhoto(evt) {
+const likePhoto = (evt) => {
   if (!evt.target.matches('.card__like')) {
     return;
   }
@@ -62,7 +62,7 @@ function likePhoto(evt) {
 cardList.addEventListener('click', likePhoto);
 
 //Удаление
-function deletePhoto(evt) {
+const deletePhoto = (evt) => {
   if (!evt.target.matches('.card__delete')) {
     return;
   }
@@ -75,17 +75,23 @@ function deletePhoto(evt) {
 cardList.addEventListener('click', deletePhoto);
 
 //Поменять класс
-function toggleModalWindow(popup) {
+const toggleModalWindow = (popup) => {
   popup.classList.toggle('popup_opened');
+}
+
+//Закрыть любой попап по клику
+const setClosePopupHandlers = (popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.matches('.button_close') || evt.target.matches('.popup')) {
+      toggleModalWindow(popup);
+    }
+  });
 }
 
 //Открыть/закрыть любой попап
 function setTogglePopupHandlers(setOpenPopupHandler, popup) {
   setOpenPopupHandler();
-  const buttonClose = popup.querySelector('.button_close');
-  buttonClose.addEventListener('click', function() {
-    toggleModalWindow(popup);
-  });
+  setClosePopupHandlers(popup);
 }
 
 //Открыть imagePopup
