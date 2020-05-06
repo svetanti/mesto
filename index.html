@@ -46,28 +46,36 @@
       </div>
       <!--Попап userForm-->
       <div class="popup" id="user-popup">
-        <form class="popup__container" id="user-container">
+        <form class="popup__container" id="user-container" novalidate>
           <button type="reset" class="button button_close popup__button popup__button_close"></button>
           <fieldset class="popup__input-container">
             <legend class="popup__heading">Редактировать профиль</legend>
-            <label for="user-name" class="visually-hidden">Имя пользователя</label>
-            <input class="popup__input-item" id="user-name" name="user-name" placeholder="Имя" required>
-            <label for="user-info" class="visually-hidden">Информация о пользователе</label>
-            <input class="popup__input-item" id="user-info" name="user-info" placeholder="О себе" required>
+            <label for="user-name" class="popup__field">
+              <input type="text" class="popup__input" id="user-name" name="user-name" placeholder="Имя" minlength="2" maxlength="40" pattern="[А-Яа-яA-Za-z -]{1,}" required>
+              <span class='popup__input-error' id='user-name-error'></span>
+            </label>
+            <label for="user-info" class="popup__field">
+              <input type="text" class="popup__input" id="user-info" name="user-info" placeholder="О себе" minlength="2" maxlength="200" required>
+              <span class='popup__input-error' id='user-info-error'></span>
+            </label>
           </fieldset>
           <button type="submit" class="button popup__button popup__button_submit">Сохранить</button>
         </form>
       </div>
       <!--Попап photoForm-->
       <div class="popup" id="photo-popup">
-        <form class="popup__container" id="photo-container">
+        <form class="popup__container" id="photo-container" novalidate>
           <button type="reset" class="button button_close popup__button popup__button_close"></button>
           <fieldset class="popup__input-container">
             <legend class="popup__heading">Новое место</legend>
-            <label for="photo-name" class="visually-hidden">Название</label>
-            <input class="popup__input-item" id="photo-name" name="photo-name" placeholder="Название" required>
-            <label for="photo-link" class="visually-hidden">Ссылка на картинку</label>
-            <input class="popup__input-item" id="photo-link" name="photo-link" placeholder="Ссылка на картинку" required>
+            <label for="photo-name" class="popup__field">
+              <input class="popup__input" id="photo-name" name="photo-name" placeholder="Название" minlength="1" maxlength="30" required>
+              <span class='popup__input-error' id='photo-name-error'></span>
+           </label>
+            <label for="photo-link" class="popup__field">
+              <input type="url" class="popup__input" id="photo-link" name="photo-link" placeholder="Ссылка на картинку" required>
+              <span class='popup__input-error' id='photo-link-error'></span>
+            </label>
           </fieldset>
           <button type="submit" class="button popup__button popup__button_submit">Создать</button>
         </form>

@@ -1,23 +1,19 @@
-.popup__input-item {
+.popup__input {
   width: 100%;
-  height: 36px;
-  margin: 0 0 29px;
-  padding-bottom: 12px;
   font-size: 0.875rem;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
-}
-
-.popup__input-item:last-of-type {
-  margin-bottom: 0;
+  padding-bottom: 12px;
 }
 
 @media screen and (max-width: 500px) {
-  .popup__input-item {
-    height: 24px;
-    margin-bottom: 20px;
+  .popup__input {
     font-size: 0.75rem;
   }
+}
+
+.popup__input:focus {
+  outline: none;
 }
