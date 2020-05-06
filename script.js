@@ -79,8 +79,17 @@ const toggleModalWindow = (popup) => {
   popup.classList.toggle('popup_opened');
 }
 
+//Закрыть любой попап по ESC
+const setKeyClosePopupHandler = (popup) => {
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      popup.classList.remove('popup_opened');
+    }
+  });
+}
+
 //Закрыть любой попап по клику
-const setClosePopupHandlers = (popup) => {
+const setMouseClosePopupHandler = (popup) => {
   popup.addEventListener('click', (evt) => {
     if (evt.target.matches('.button_close') || evt.target.matches('.popup')) {
       toggleModalWindow(popup);
@@ -91,7 +100,8 @@ const setClosePopupHandlers = (popup) => {
 //Открыть/закрыть любой попап
 function setTogglePopupHandlers(setOpenPopupHandler, popup) {
   setOpenPopupHandler();
-  setClosePopupHandlers(popup);
+  setKeyClosePopupHandler(popup);
+  setMouseClosePopupHandler(popup);
 }
 
 //Открыть imagePopup
