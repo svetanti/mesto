@@ -27,29 +27,32 @@ const initialCards = [
 
 //Добавить разметку карточки
 const cardTemplate = document.querySelector('#card-template').content;
-function addCard(src, name) {
+
+const addCard = (src, name) => {
   const cardItem = cardTemplate.cloneNode(true);
   cardItem.querySelector('.card__photo').src = src;
   cardItem.querySelector('.card__photo').alt = name;
   cardItem.querySelector('.card__caption').textContent = name;
 
   return cardItem;
-}
+};
 
 //Вставить карточку в галерею
 const photoGallery = document.querySelector('.elements');
-function insertCard(card) {
+
+const insertCard = (card) => {
   const photoCard = addCard(card.link, card.name);
   photoGallery.prepend(photoCard);
-}
+};
 
 //Вывести карточки на страницу
-initialCards.forEach(function(item) {
+initialCards.forEach((item) => {
   insertCard(item);
 });
 
 //Лайк
 const cardList = document.querySelector('.elements');
+
 const likePhoto = (evt) => {
   if (!evt.target.matches('.card__like')) {
     return;
@@ -57,7 +60,7 @@ const likePhoto = (evt) => {
   else {
     evt.target.classList.toggle('card__like_active');
   }
-}
+};
 
 cardList.addEventListener('click', likePhoto);
 
@@ -70,23 +73,28 @@ const deletePhoto = (evt) => {
     const cardToDelete = evt.target.closest('.card');
     cardToDelete.remove();
   }
-}
+};
 
 cardList.addEventListener('click', deletePhoto);
 
 //Поменять класс
 const toggleModalWindow = (popup) => {
   popup.classList.toggle('popup_opened');
-}
+};
 
 //Закрыть любой попап по ESC
-const setKeyClosePopupHandler = (popup) => {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape' || evt.key === 'Esc') {
-      popup.classList.remove('popup_opened');
-    }
-  });
-}
+const setKeyClosePopupHandler = (evt) =>{
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape' || evt.key === 'Esc') {
+    toggleModalWindow(popupOpened);
+    document.removeEventListener('keyup', setKeyClosePopupHandler);
+  }
+};
+
+//Повесить слушатель для закрытия попапа по ESC
+const addKeyCloseEventListener = () => {
+  document.addEventListener('keyup', setKeyClosePopupHandler);
+};
 
 //Закрыть любой попап по клику
 const setMouseClosePopupHandler = (popup) => {
@@ -95,21 +103,21 @@ const setMouseClosePopupHandler = (popup) => {
       toggleModalWindow(popup);
     }
   });
-}
+};
 
 //Открыть/закрыть любой попап
-function setTogglePopupHandlers(setOpenPopupHandler, popup) {
+const setTogglePopupHandlers = (setOpenPopupHandler, popup) => {
   setOpenPopupHandler();
-  setKeyClosePopupHandler(popup);
   setMouseClosePopupHandler(popup);
-}
+};
 
 //Открыть imagePopup
 const imagePopup = document.querySelector('#image-popup');
 const photoBig = imagePopup.querySelector('.photo__img');
 const photoBigCaption = imagePopup.querySelector('.photo__caption');
+
 function setOpenImagePopupHandler() {
-  cardList.addEventListener('click', function(evt) {
+  cardList.addEventListener('click', (evt) => {
     if (!evt.target.matches('.card__photo')) {
       return;
     }
@@ -121,70 +129,95 @@ function setOpenImagePopupHandler() {
       photoBig.alt = caption.textContent;
       photoBigCaption.textContent = caption.textContent;
       toggleModalWindow(imagePopup);
+      addKeyCloseEventListener();
     }
   });
-}
+};
 
 setTogglePopupHandlers(setOpenImagePopupHandler, imagePopup);
 
-//Открыть userForm
-const userForm = document.querySelector('#user-popup');
+//Задать значения полей при открытии по умолчанию
+const setDefaultInputValue = (formElement, firstDefaultValue, secondDefaultValue) => {
+  const inputList = Array.from(formElement.querySelectorAll(`.popup__input`));
+  inputList[0].value = firstDefaultValue;
+  inputList[1].value = secondDefaultValue;
+};
+
+//Убрать сообщения об ошибках при открытии окна
+const setDefaultErrorState = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  inputList.forEach((inputElement) => {
+    if (inputElement.matches('.popup__input_type_error')) {
+      hideInputError(formElement, inputElement, 'popup__input_type_error', 'popup__input-error_active');
+    };
+  });
+};
+
+//Открыть userPopup
+const userPopup = document.querySelector('#user-popup');
+const userForm = document.querySelector('#user-form');
 const buttonEditUserInfo = document.querySelector('.profile__button_action_edit');
-const userName = document.querySelector('#user-name');
-const userInfo = document.querySelector('#user-info');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
-function setOpenUserFormPopupHandler() {
-  buttonEditUserInfo.addEventListener('click', function() {
-    toggleModalWindow(userForm);
-    userName.value = profileName.textContent;
-    userInfo.value = profileAbout.textContent;
+
+function setOpenUserPopupPopupHandler() {
+  buttonEditUserInfo.addEventListener('click', () => {
+    setDefaultInputValue(userForm, profileName.textContent, profileAbout.textContent);
+    setDefaultErrorState(userForm);
+    toggleModalWindow(userPopup);
+    addKeyCloseEventListener();
   });
 };
 
-setTogglePopupHandlers(setOpenUserFormPopupHandler, userForm);
+setTogglePopupHandlers(setOpenUserPopupPopupHandler, userPopup);
 
-//Открыть photoForm
-const photoForm = document.querySelector('#photo-popup');
+//Открыть photoPopup
+const photoPopup = document.querySelector('#photo-popup');
+const photoForm = document.querySelector('#photo-form');
 const buttonAddPhoto = document.querySelector('.profile__button_action_add');
-function setOpenPhotoFormPopupHandler() {
-  buttonAddPhoto.addEventListener('click', function() {
-    toggleModalWindow(photoForm);
-  });
-};
-
-setTogglePopupHandlers(setOpenPhotoFormPopupHandler, photoForm);
-
-//Submit
-function setSubmitHandler(form, submitHandler) {
-  form.addEventListener('submit', submitHandler);
-}
-
-//Submit для пользователя
-const userContainer = document.querySelector('#user-container');
-function submitUserForm (evt) {
-    evt.preventDefault();
-    profileName.textContent = userName.value;
-    profileAbout.textContent = userInfo.value;
-    toggleModalWindow(userForm);
-}
-
-setSubmitHandler(userContainer, submitUserForm);
-
-//Submit для фотографий
 const photoName = document.querySelector('#photo-name');
 const photoLink = document.querySelector('#photo-link');
-const photoContainer = document.querySelector('#photo-container');
-function submitPhotoForm (evt) {
-    evt.preventDefault();
+
+function setOpenPhotoPopupPopupHandler() {
+  buttonAddPhoto.addEventListener('click', () => {
+    setDefaultInputValue(photoForm, '', '');
+    setDefaultErrorState(photoForm);
+    toggleModalWindow(photoPopup);
+    addKeyCloseEventListener();
+  });
+};
+
+setTogglePopupHandlers(setOpenPhotoPopupPopupHandler, photoPopup);
+
+//Отправить данные на страницу
+const setSubmitHandler = (formElement, submitForm) =>
+formElement.addEventListener('click', (evt) => {
+  if (evt.target.matches('.popup__button_submit') && !evt.target.matches('.popup__button_submit_disabled')) {
+    submitForm();
+  }
+});
+
+//Submit для пользователя
+const userName = document.querySelector('#user-name');
+const userInfo = document.querySelector('#user-info');
+function setSubmitUserFormHandler() {
+    profileName.textContent = userName.value;
+    profileAbout.textContent = userInfo.value;
+    toggleModalWindow(userPopup);
+};
+
+setSubmitHandler(userForm, setSubmitUserFormHandler);
+
+//Submit для фотографий
+function setSubmitPhotoFormHandler(evt) {
     const cardAddedByUser = {
       name: photoName.value,
       link: photoLink.value
     };
     insertCard(cardAddedByUser);
-    toggleModalWindow(photoForm);
+    toggleModalWindow(photoPopup);
     photoName.value = '';
     photoLink.value = '';
-}
+;}
 
-setSubmitHandler(photoContainer, submitPhotoForm);
+setSubmitHandler(photoForm, setSubmitPhotoFormHandler);
