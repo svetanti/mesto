@@ -1,5 +1,5 @@
 //Показать ошибку в поле ввода
-const showInputError = (formElement, inputElement, errorMessage, inputErrorClass, errorClass) => {
+const showInputError = (formElement, inputElement, errorMessage, {inputErrorClass, errorClass}) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(inputErrorClass);
   errorElement.classList.add(errorClass);
@@ -7,7 +7,7 @@ const showInputError = (formElement, inputElement, errorMessage, inputErrorClass
 };
 
 //Спрятать ошибку в поле ввода
-const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) => {
+const hideInputError = (formElement, inputElement, {inputErrorClass, errorClass}) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(inputErrorClass);
   errorElement.classList.remove(errorClass);
@@ -21,64 +21,60 @@ const findInvalidInput = (inputList) => {
   });
 };
 
+//Определить состояние кнопки
 const setButtonState = (buttonElement, inactiveButtonClass, state) => {
   if (state === true) {
-    buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.setAttribute('disabled', true);
   }
   else {
-    buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.disabled = false;
   }
 }
 
 //Переключить состояние кнопки
 const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
   if (findInvalidInput(inputList)) {
-    setButtonState(buttonElement, inactiveButtonClass, false);
+    setButtonState(buttonElement, inactiveButtonClass, true);
   }
   else {
-    setButtonState(buttonElement, inactiveButtonClass, true);
+    setButtonState(buttonElement, inactiveButtonClass, false);
   }
 };
 
 //Проверить валидность поля
-const checkInputValidity = (formElement, inputElement, inputErrorClass, errorClass) => {
+const checkInputValidity = (formElement, inputElement, {...rest}) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, inputErrorClass, errorClass);
+    showInputError(formElement, inputElement, inputElement.validationMessage, rest);
   }
   else {
-    hideInputError(formElement, inputElement, inputErrorClass, errorClass);
+    hideInputError(formElement, inputElement, rest);
   }
+
 };
 
 //Повесить слушатели
-const setEventListeners = (formElement, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass) => {
+const setEventListeners = (formElement, {inputSelector, submitButtonSelector, inactiveButtonClass, ...rest}) => {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
   toggleButtonState(inputList, buttonElement, inactiveButtonClass);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
-      checkInputValidity(formElement, inputElement, inputErrorClass, errorClass);
+      checkInputValidity(formElement, inputElement, rest);
       toggleButtonState(inputList, buttonElement, inactiveButtonClass);
     });
   });
 };
 
 //Объявить функицю валидации
-const enableValidation = ({...parameters}) => {
-
-  const formSelector = parameters.formSelector;
-  const inputSelector = parameters.inputSelector;
-  const submitButtonSelector = parameters.submitButtonSelector;
-  const inactiveButtonClass = parameters.inactiveButtonClass;
-  const inputErrorClass = parameters.inputErrorClass;
-  const errorClass = parameters.errorClass;
-
+const enableValidation = ({formSelector, ...rest}) => {
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    setEventListeners(formElement, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass);
+    setEventListeners(formElement, rest);
   });
 };
 
