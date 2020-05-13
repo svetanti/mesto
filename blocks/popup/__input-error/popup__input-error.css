@@ -8,3 +8,9 @@
   opacity: 0;
   transition: opacity .5s ease;
 }
+
+@media screen and (max-width: 500px) {
+  .popup__input-error {
+    font-size: 0.625rem;
+  }
+}

@@ -22,24 +22,22 @@ const findInvalidInput = (inputList) => {
 };
 
 //Определить состояние кнопки
-const setButtonState = (buttonElement, inactiveButtonClass, state) => {
-  if (state === true) {
-    buttonElement.classList.add(inactiveButtonClass);
+const setButtonState = (buttonElement, flag) => {
+  if (flag === true) {
     buttonElement.setAttribute('disabled', true);
   }
   else {
-    buttonElement.classList.remove(inactiveButtonClass);
     buttonElement.disabled = false;
   }
 }
 
 //Переключить состояние кнопки
-const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
+const toggleButtonState = (inputList, buttonElement) => {
   if (findInvalidInput(inputList)) {
-    setButtonState(buttonElement, inactiveButtonClass, true);
+    setButtonState(buttonElement, true);
   }
   else {
-    setButtonState(buttonElement, inactiveButtonClass, false);
+    setButtonState(buttonElement, false);
   }
 };
 
@@ -55,14 +53,14 @@ const checkInputValidity = (formElement, inputElement, {...rest}) => {
 };
 
 //Повесить слушатели
-const setEventListeners = (formElement, {inputSelector, submitButtonSelector, inactiveButtonClass, ...rest}) => {
+const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ...rest}) => {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
-  toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+  toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement, rest);
-      toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+      toggleButtonState(inputList, buttonElement);
     });
   });
 };
@@ -83,7 +81,6 @@ enableValidation({
   formSelector: '.popup__container',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button_submit',
-  inactiveButtonClass: 'popup__button_submit_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
 });

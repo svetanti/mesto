@@ -4,7 +4,8 @@
   grid-template-columns: 1fr min-content;
   grid-template-rows: repeat(2, min-content);
   grid-column-gap: 17px;
-  align-items: baseline;
+  grid-row-gap: 16px;
+  align-items: end;
 }
 
 @media screen and (max-width: 980px) {
@@ -17,5 +18,6 @@
   .profile__info {
     max-width: 100%;
     grid-column-gap: 6px;
+    grid-row-gap: 0.875rem;
   }
 }

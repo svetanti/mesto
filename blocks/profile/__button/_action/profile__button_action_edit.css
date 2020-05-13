@@ -11,6 +11,14 @@
 
 @media screen and (max-width: 980px) {
   .profile__button_action_edit {
+    width: 19px;
+    height: 19px;
+    background-size: 8.5px 8.5px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__button_action_edit{
     width: 18px;
     height: 18px;
     background-size: 7.5px 7.5px;

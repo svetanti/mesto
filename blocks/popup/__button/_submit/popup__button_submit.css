@@ -10,6 +10,14 @@
   font-weight: normal;
 }
 
+.popup__button_submit:disabled {
+  border: 1px solid rgba(0, 0, 0, .2);
+  background-color: #fff;
+  color: rgba(0, 0, 0, .2);
+  pointer-events: none;
+  user-select: none;
+}
+
 @media screen and (max-width: 500px) {
   .popup__button_submit {
     width: 83%;

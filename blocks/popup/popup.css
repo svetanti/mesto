@@ -9,8 +9,6 @@
 @import url('__input-error/popup__input-error.css');
 @import url('__input-error/_active/popup__input-error_active.css');
 @import url('__button/_submit/popup__button_submit.css');
-@import url('__button/_submit/_disabled/popup__button_submit_disabled.css');
-
 
 .popup {
   width: 100%;
@@ -25,6 +23,7 @@
   z-index: -1;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 1s ease-out, z-index 2s ease-out, opacity 1s ease-out;
+  transition: visibility 1s ease-out, z-index 1.5s ease-out, opacity 1s ease-out;
+  -moz-transition: visibility 1s ease-out, z-index 1.5s ease-out, opacity 1s ease-out;
 }
 
