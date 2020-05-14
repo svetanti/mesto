@@ -23,7 +23,7 @@
   z-index: -1;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 1s ease-out, z-index 1.5s ease-out, opacity 1s ease-out;
-  -moz-transition: visibility 1s ease-out, z-index 1.5s ease-out, opacity 1s ease-out;
+  transition: visibility .7s ease-out, z-index 1s ease-out, opacity .7s ease-out;
+  -moz-transition: visibility .7s ease-out, z-index 1s ease-out, opacity .7s ease-out;
 }
 

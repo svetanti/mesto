@@ -116,14 +116,13 @@ const setTogglePopupHandlers = (setOpenPopupHandler, popup) => {
 //Открыть imagePopup
 function setOpenImagePopupHandler() {
   cardList.addEventListener('click', (evt) => {
-    if (evt.target.matches('.card__photo')) {
-      const imageToZoom = evt.target;
-      photoBig.src = imageToZoom.src;
-      photoBig.alt = imageToZoom.alt;
-      photoBigCaption.textContent = imageToZoom.alt;
-      toggleModalWindow(imagePopup);
-      addKeyCloseEventListener();
-    }
+    if (!evt.target.matches('.card__photo')) return;
+    const imageToZoom = evt.target;
+    photoBig.src = imageToZoom.src;
+    photoBig.alt = imageToZoom.alt;
+    photoBigCaption.textContent = imageToZoom.alt;
+    toggleModalWindow(imagePopup);
+    addKeyCloseEventListener();
   });
 };
 
@@ -174,12 +173,9 @@ function setOpenPhotoPopupPopupHandler() {
 };
 
 //Отправить данные на страницу
-const setSubmitHandler = (formElement, submitForm) =>
-formElement.addEventListener('click', (evt) => {
-  if (evt.target.matches('.popup__button_submit')) {
-    submitForm();
-  };
-});
+const setSubmitHandler = (formElement, submitForm) => {
+  formElement.addEventListener('submit', submitForm);
+};
 
 //Submit для пользователя
 function setSubmitUserFormHandler() {
