@@ -1,3 +1,7 @@
+/*
+
+
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -23,13 +27,12 @@ const initialCards = [
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
-];
+];*/
 const cardTemplate = document.querySelector('#card-template').content;
-const photoGallery = document.querySelector('.elements');
+/*const photoGallery = document.querySelector('.elements');*/
 const cardList = document.querySelector('.elements');
-const imagePopup = document.querySelector('#image-popup');
-const photoBig = imagePopup.querySelector('.photo__img');
-const photoBigCaption = imagePopup.querySelector('.photo__caption');
+
+
 const userName = document.querySelector('#user-name');
 const userInfo = document.querySelector('#user-info');
 const userPopup = document.querySelector('#user-popup');
@@ -43,6 +46,8 @@ const buttonAddPhoto = document.querySelector('.profile__button_action_add');
 const photoName = document.querySelector('#photo-name');
 const photoLink = document.querySelector('#photo-link');
 
+
+/*
 //Добавить разметку карточки
 const addCard = (src, name) => {
   const cardItem = cardTemplate.cloneNode(true);
@@ -77,7 +82,7 @@ const deletePhoto = (evt) => {
     const cardToDelete = evt.target.closest('.card');
     cardToDelete.remove();
   }
-};
+};*/
 
 //Поменять класс
 const toggleModalWindow = (popup) => {
@@ -112,7 +117,7 @@ const setTogglePopupHandlers = (setOpenPopupHandler, popup) => {
   setOpenPopupHandler();
   setMouseClosePopupHandler(popup);
 };
-
+/*
 //Открыть imagePopup
 function setOpenImagePopupHandler() {
   cardList.addEventListener('click', (evt) => {
@@ -125,6 +130,7 @@ function setOpenImagePopupHandler() {
     addKeyCloseEventListener();
   });
 };
+*/
 
 //Задать значения полей при открытии userForm по умолчанию
 const setDefaultInputValue = () => {
@@ -196,10 +202,12 @@ function setSubmitPhotoFormHandler(evt) {
   photoLink.value = '';
 };
 
+/*
 cardList.addEventListener('click', likePhoto);
 cardList.addEventListener('click', deletePhoto);
+*/
 
-setTogglePopupHandlers(setOpenImagePopupHandler, imagePopup);
+/*setTogglePopupHandlers(setOpenImagePopupHandler, imagePopup);*/
 setTogglePopupHandlers(setOpenUserPopupPopupHandler, userPopup);
 setTogglePopupHandlers(setOpenPhotoPopupPopupHandler, photoPopup);
 setSubmitHandler(userForm, setSubmitUserFormHandler);
