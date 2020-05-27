@@ -1,6 +1,6 @@
-/*
-
-
+//Импортировать классы
+import {FormValidator} from './FormValidator.js';
+import {Card} from './Card.js';
 
 const initialCards = [
   {
@@ -27,12 +27,15 @@ const initialCards = [
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
-];*/
-const cardTemplate = document.querySelector('#card-template').content;
-/*const photoGallery = document.querySelector('.elements');*/
-const cardList = document.querySelector('.elements');
-
-
+];
+const formSelectors = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button_submit',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+};
+const photoGallery = document.querySelector('.elements');
+const forms = Array.from(document.querySelectorAll('.popup__container'));
 const userName = document.querySelector('#user-name');
 const userInfo = document.querySelector('#user-info');
 const userPopup = document.querySelector('#user-popup');
@@ -46,43 +49,17 @@ const buttonAddPhoto = document.querySelector('.profile__button_action_add');
 const photoName = document.querySelector('#photo-name');
 const photoLink = document.querySelector('#photo-link');
 
-
-/*
-//Добавить разметку карточки
-const addCard = (src, name) => {
-  const cardItem = cardTemplate.cloneNode(true);
-  cardItem.querySelector('.card__photo').src = src;
-  cardItem.querySelector('.card__photo').alt = name;
-  cardItem.querySelector('.card__caption').textContent = name;
-
-  return cardItem;
-};
-
 //Вставить карточку в галерею
-const insertCard = (card) => {
-  const photoCard = addCard(card.link, card.name);
-  photoGallery.prepend(photoCard);
-};
+const insertCard = (cardItem) => {
+  const card = new Card(cardItem, '#card-template');
+  const cardElement = card.generateCard();
+  photoGallery.prepend(cardElement);
+}
 
 //Вывести карточки на страницу
 initialCards.forEach((item) => {
   insertCard(item);
 });
-
-//Лайк
-const likePhoto = (evt) => {
-  if (evt.target.matches('.card__like')) {
-    evt.target.classList.toggle('card__like_active');
-  }
-};
-
-//Удаление
-const deletePhoto = (evt) => {
-  if (evt.target.matches('.card__delete')) {
-    const cardToDelete = evt.target.closest('.card');
-    cardToDelete.remove();
-  }
-};*/
 
 //Поменять класс
 const toggleModalWindow = (popup) => {
@@ -90,7 +67,7 @@ const toggleModalWindow = (popup) => {
 };
 
 //Закрыть любой попап по ESC
-const setKeyClosePopupHandler = (evt) =>{
+const setKeyClosePopupHandler = (evt) => {
   const popupOpened = document.querySelector('.popup_opened');
   if (evt.key === 'Escape' || evt.key === 'Esc') {
     toggleModalWindow(popupOpened);
@@ -117,20 +94,6 @@ const setTogglePopupHandlers = (setOpenPopupHandler, popup) => {
   setOpenPopupHandler();
   setMouseClosePopupHandler(popup);
 };
-/*
-//Открыть imagePopup
-function setOpenImagePopupHandler() {
-  cardList.addEventListener('click', (evt) => {
-    if (!evt.target.matches('.card__photo')) return;
-    const imageToZoom = evt.target;
-    photoBig.src = imageToZoom.src;
-    photoBig.alt = imageToZoom.alt;
-    photoBigCaption.textContent = imageToZoom.alt;
-    toggleModalWindow(imagePopup);
-    addKeyCloseEventListener();
-  });
-};
-*/
 
 //Задать значения полей при открытии userForm по умолчанию
 const setDefaultInputValue = () => {
@@ -143,10 +106,23 @@ const setDefaultErrorState = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   inputList.forEach((inputElement) => {
     if (inputElement.matches('.popup__input_type_error')) {
-      hideInputError(formElement, inputElement, {inputErrorClass: 'popup__input_type_error', errorClass: 'popup__input-error_active'});
+      const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+      inputElement.classList.remove('popup__input_type_error');
+      errorElement.classList.remove('popup__input-error_active');
+      errorElement.textContent = '';
     };
   });
 };
+
+//Изменить состояние кнопки
+const setButtonState = (buttonElement, flag) => {
+  if (flag === true) {
+    buttonElement.setAttribute('disabled', true);
+  }
+  else {
+    buttonElement.disabled = false;
+  }
+}
 
 //Открыть userPopup
 function setOpenUserPopupPopupHandler() {
@@ -202,12 +178,12 @@ function setSubmitPhotoFormHandler(evt) {
   photoLink.value = '';
 };
 
-/*
-cardList.addEventListener('click', likePhoto);
-cardList.addEventListener('click', deletePhoto);
-*/
+//Создать экземпляр класса FormValidator для каждой формы и включить валидацию
+forms.forEach((formItem) => {
+  const validator = new FormValidator(formSelectors, formItem);
+  validator.enableValidation();
+});
 
-/*setTogglePopupHandlers(setOpenImagePopupHandler, imagePopup);*/
 setTogglePopupHandlers(setOpenUserPopupPopupHandler, userPopup);
 setTogglePopupHandlers(setOpenPhotoPopupPopupHandler, photoPopup);
 setSubmitHandler(userForm, setSubmitUserFormHandler);

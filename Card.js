@@ -1,41 +1,15 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-const photoGallery = document.querySelector('.elements');
 const imagePopup = document.querySelector('#image-popup');
 const photoBig = imagePopup.querySelector('.photo__img');
 const photoBigCaption = imagePopup.querySelector('.photo__caption');
 
-class Card {
+export class Card {
   constructor(data, cardSelector) {
     this._cardSelector = cardSelector;
     this._name = data.name;
     this._link = data.link;
   }
 
+  //Добавить разметку карточки
   _getCardTemplate() {
     const cardElement = document
     .querySelector(this._cardSelector)
@@ -48,6 +22,7 @@ class Card {
     return cardElement;
   }
 
+  //Сгенерировать карточку
   generateCard() {
     this._cardItem = this._getCardTemplate();
     this._setEventListeners();
@@ -59,6 +34,7 @@ class Card {
     return this._cardItem;
   }
 
+  //Установить слушатели событий
   _setEventListeners() {
     this._cardItem.querySelector('.card__like').addEventListener('click', () => {
       this._handleCardLike();
@@ -72,17 +48,23 @@ class Card {
     imagePopup.addEventListener('click', (evt) => {
       this._handleCardPopupClose(evt);
     });
+    document.addEventListener('keyup', (evt) => {
+      this._handleCardPopupCloseByKey(evt);
+    });
   }
 
+  //Лайк
   _handleCardLike() {
     this._cardItem.querySelector('.card__like').classList.toggle('card__like_active');
   }
 
+  //Удаление
   _handleCardDelete(evt) {
     const cardToDelete = evt.target.closest('.card');
     cardToDelete.remove();
   }
 
+  //Открыть большое изображение
   _handleCardPopupOpen(evt) {
     const imageToZoom = evt.target;
     photoBig.src = imageToZoom.src;
@@ -91,20 +73,17 @@ class Card {
     imagePopup.classList.add('popup_opened');
   }
 
+  //Закрыть большое изображение по клику
   _handleCardPopupClose(evt) {
     if (evt.target.matches('.button_close') || evt.target.matches('.popup')) {
       imagePopup.classList.remove('popup_opened');
     };
-    addKeyCloseEventListener();
+  }
+
+  //Закрыть большое изображение по ESC
+  _handleCardPopupCloseByKey(evt) {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      imagePopup.classList.remove('popup_opened');
+    };
   }
 }
-
-const insertCard = (cardItem) => {
-  const card = new Card(cardItem, '#card-template');
-  const cardElement = card.generateCard();
-  photoGallery.prepend(cardElement);
-}
-
-initialCards.forEach((item) => {
-  insertCard(item);
-});
