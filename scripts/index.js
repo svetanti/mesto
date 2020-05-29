@@ -2,6 +2,7 @@
 import {FormValidator} from './FormValidator.js';
 import {Card} from './Card.js';
 
+//Объявить константы
 const initialCards = [
   {
     name: 'Архыз',
@@ -50,15 +51,15 @@ const photoName = document.querySelector('#photo-name');
 const photoLink = document.querySelector('#photo-link');
 
 //Вставить карточку в галерею
-const insertCard = (cardItem) => {
+const prependCard = (cardItem) => {
   const card = new Card(cardItem, '#card-template');
   const cardElement = card.generateCard();
   photoGallery.prepend(cardElement);
 }
 
 //Вывести карточки на страницу
-initialCards.forEach((item) => {
-  insertCard(item);
+initialCards.reverse().forEach((item) => {
+  prependCard(item);
 });
 
 //Поменять класс
@@ -71,8 +72,8 @@ const setKeyClosePopupHandler = (evt) => {
   const popupOpened = document.querySelector('.popup_opened');
   if (evt.key === 'Escape' || evt.key === 'Esc') {
     toggleModalWindow(popupOpened);
-    document.removeEventListener('keyup', setKeyClosePopupHandler);
   }
+  removeKeyCloseEventListener();
 };
 
 //Закрыть любой попап по клику
@@ -87,6 +88,13 @@ const setMouseClosePopupHandler = (popup) => {
 //Повесить слушатель для закрытия попапа по ESC
 const addKeyCloseEventListener = () => {
   document.addEventListener('keyup', setKeyClosePopupHandler);
+};
+
+//Удалить слушатель для закрытия попапа по ESC
+const removeKeyCloseEventListener = () => {
+  if (!document.querySelector('.popup_opened')) {
+    document.removeEventListener('keyup', setKeyClosePopupHandler);
+  }
 };
 
 //Открыть/закрыть любой попап
@@ -110,7 +118,7 @@ const setDefaultErrorState = (formElement) => {
       inputElement.classList.remove('popup__input_type_error');
       errorElement.classList.remove('popup__input-error_active');
       errorElement.textContent = '';
-    };
+    }
   });
 };
 
@@ -125,7 +133,7 @@ const setButtonState = (buttonElement, flag) => {
 }
 
 //Открыть userPopup
-function setOpenUserPopupPopupHandler() {
+function setOpenUserPopupHandler() {
   buttonEditUserInfo.addEventListener('click', () => {
     const buttonSubmit = userForm.querySelector('.popup__button_submit');
     setButtonState(buttonSubmit, true);
@@ -134,7 +142,7 @@ function setOpenUserPopupPopupHandler() {
     toggleModalWindow(userPopup);
     addKeyCloseEventListener();
   });
-};
+}
 
 //Очистить значения полей photoPopup
 const resetInputValue = () => {
@@ -143,7 +151,7 @@ const resetInputValue = () => {
 };
 
 //Открыть photoPopup
-function setOpenPhotoPopupPopupHandler() {
+function setOpenPhotoPopupHandler() {
   buttonAddPhoto.addEventListener('click', () => {
     const buttonSubmit = photoForm.querySelector('.popup__button_submit');
     setButtonState(buttonSubmit, true);
@@ -152,7 +160,7 @@ function setOpenPhotoPopupPopupHandler() {
     toggleModalWindow(photoPopup);
     addKeyCloseEventListener();
   });
-};
+}
 
 //Отправить данные на страницу
 const setSubmitHandler = (formElement, submitForm) => {
@@ -167,12 +175,12 @@ function setSubmitUserFormHandler() {
 };
 
 //Submit для фотографий
-function setSubmitPhotoFormHandler(evt) {
+function setSubmitPhotoFormHandler() {
   const cardAddedByUser = {
     name: photoName.value,
     link: photoLink.value
   };
-  insertCard(cardAddedByUser);
+  prependCard(cardAddedByUser);
   toggleModalWindow(photoPopup);
   photoName.value = '';
   photoLink.value = '';
@@ -184,7 +192,7 @@ forms.forEach((formItem) => {
   validator.enableValidation();
 });
 
-setTogglePopupHandlers(setOpenUserPopupPopupHandler, userPopup);
-setTogglePopupHandlers(setOpenPhotoPopupPopupHandler, photoPopup);
+setTogglePopupHandlers(setOpenUserPopupHandler, userPopup);
+setTogglePopupHandlers(setOpenPhotoPopupHandler, photoPopup);
 setSubmitHandler(userForm, setSubmitUserFormHandler);
 setSubmitHandler(photoForm, setSubmitPhotoFormHandler);

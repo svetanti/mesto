@@ -7,20 +7,23 @@ export class FormValidator {
     this._errorClass = data.errorClass;
   }
 
+  //Определить элемент с текстом ошибки
+  _setErrorElement(inputElement) {
+    return this._formElement.querySelector(`#${inputElement.id}-error`);
+  }
+
   //Показать ошибку в поле ввода
   _showInputError (inputElement, errorMessage) {
-    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.add(this._inputErrorClass);
-    errorElement.classList.add(this._errorClass);
-    errorElement.textContent = errorMessage;
+    this._setErrorElement(inputElement).classList.add(this._errorClass);
+    this._setErrorElement(inputElement).textContent = errorMessage;
   };
 
   //Спрятать ошибку в поле ввода
   _hideInputError (inputElement) {
-    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
-    errorElement.classList.remove(this._errorClass);
-    errorElement.textContent = '';
+    this._setErrorElement(inputElement).classList.remove(this._errorClass);
+    this._setErrorElement(inputElement).textContent = '';
   };
 
   //Найти невалидное поле
@@ -30,6 +33,7 @@ export class FormValidator {
     });
   };
 
+  //Установить состояние кнопки
   _setButtonState (buttonElement, flag) {
     if (flag === true) {
       buttonElement.setAttribute('disabled', true);
@@ -37,17 +41,13 @@ export class FormValidator {
     else {
       buttonElement.disabled = false;
     }
-  }
+  };
 
   //Переключить состояние кнопки
   _toggleButtonState (inputList, buttonElement) {
-    if (this._findInvalidInput(inputList)) {
-      this._setButtonState(buttonElement, true);
-    }
-    else {
-      this._setButtonState(buttonElement, false);
-    }
+    this._setButtonState (buttonElement, this._findInvalidInput(inputList));
   };
+
 
   //Проверить валидность поля
   _checkInputValidity (inputElement) {
@@ -79,4 +79,4 @@ export class FormValidator {
     });
     this._setEventListeners();
   };
-};
+}

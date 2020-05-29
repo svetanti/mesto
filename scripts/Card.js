@@ -26,9 +26,9 @@ export class Card {
   generateCard() {
     this._cardItem = this._getCardTemplate();
     this._setEventListeners();
-
-    this._cardItem.querySelector('.card__photo').src = this._link;
-    this._cardItem.querySelector('.card__photo').alt = this._name;
+    const cardPhoto = this._cardItem.querySelector('.card__photo');
+    cardPhoto.src = this._link;
+    cardPhoto.alt = this._name;
     this._cardItem.querySelector('.card__caption').textContent = this._name;
 
     return this._cardItem;
@@ -77,13 +77,13 @@ export class Card {
   _handleCardPopupClose(evt) {
     if (evt.target.matches('.button_close') || evt.target.matches('.popup')) {
       imagePopup.classList.remove('popup_opened');
-    };
+    }
   }
 
   //Закрыть большое изображение по ESC
   _handleCardPopupCloseByKey(evt) {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
       imagePopup.classList.remove('popup_opened');
-    };
+    }
   }
 }
