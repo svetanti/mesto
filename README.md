@@ -23,7 +23,7 @@
 ## Ссылка на проект
 https://svetanti.github.io/mesto/
 
-# Project 6: Mesto
+# Project 7: Mesto
 ---
 
 The project is created using some features of HTML, CSS and JavaScript and it is adapted for viewing on different devices. The desktop-first approach is used. In the project is realized possibility to edit user name and user info.
