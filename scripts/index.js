@@ -68,12 +68,12 @@ const toggleModalWindow = (popup) => {
 };
 
 //Закрыть любой попап по ESC
-const setKeyClosePopupHandler = (evt) => {
+const handleKeyClosePopup = (evt) => {
   const popupOpened = document.querySelector('.popup_opened');
   if (evt.key === 'Escape' || evt.key === 'Esc') {
     toggleModalWindow(popupOpened);
+    removeKeyCloseEventListener();
   }
-  removeKeyCloseEventListener();
 };
 
 //Закрыть любой попап по клику
@@ -87,13 +87,13 @@ const setMouseClosePopupHandler = (popup) => {
 
 //Повесить слушатель для закрытия попапа по ESC
 const addKeyCloseEventListener = () => {
-  document.addEventListener('keyup', setKeyClosePopupHandler);
+  document.addEventListener('keyup', handleKeyClosePopup);
 };
 
 //Удалить слушатель для закрытия попапа по ESC
 const removeKeyCloseEventListener = () => {
   if (!document.querySelector('.popup_opened')) {
-    document.removeEventListener('keyup', setKeyClosePopupHandler);
+    document.removeEventListener('keyup', handleKeyClosePopup);
   }
 };
 
@@ -168,14 +168,15 @@ const setSubmitHandler = (formElement, submitForm) => {
 };
 
 //Submit для пользователя
-function setSubmitUserFormHandler() {
+function handleUserFormSubmit() {
   profileName.textContent = userName.value;
   profileAbout.textContent = userInfo.value;
   toggleModalWindow(userPopup);
-};
+  removeKeyCloseEventListener();
+}
 
 //Submit для фотографий
-function setSubmitPhotoFormHandler() {
+function handlePhotoFormSubmit() {
   const cardAddedByUser = {
     name: photoName.value,
     link: photoLink.value
@@ -184,7 +185,8 @@ function setSubmitPhotoFormHandler() {
   toggleModalWindow(photoPopup);
   photoName.value = '';
   photoLink.value = '';
-};
+  removeKeyCloseEventListener();
+}
 
 //Создать экземпляр класса FormValidator для каждой формы и включить валидацию
 forms.forEach((formItem) => {
@@ -194,5 +196,5 @@ forms.forEach((formItem) => {
 
 setTogglePopupHandlers(setOpenUserPopupHandler, userPopup);
 setTogglePopupHandlers(setOpenPhotoPopupHandler, photoPopup);
-setSubmitHandler(userForm, setSubmitUserFormHandler);
-setSubmitHandler(photoForm, setSubmitPhotoFormHandler);
+setSubmitHandler(userForm, handleUserFormSubmit);
+setSubmitHandler(photoForm, handlePhotoFormSubmit);

@@ -8,22 +8,24 @@ export class FormValidator {
   }
 
   //Определить элемент с текстом ошибки
-  _setErrorElement(inputElement) {
+  _returnErrorElement(inputElement) {
     return this._formElement.querySelector(`#${inputElement.id}-error`);
   }
 
   //Показать ошибку в поле ввода
   _showInputError (inputElement, errorMessage) {
+    const errorElement = this._returnErrorElement(inputElement);
     inputElement.classList.add(this._inputErrorClass);
-    this._setErrorElement(inputElement).classList.add(this._errorClass);
-    this._setErrorElement(inputElement).textContent = errorMessage;
+    errorElement.classList.add(this._errorClass);
+    errorElement.textContent = errorMessage;
   };
 
   //Спрятать ошибку в поле ввода
   _hideInputError (inputElement) {
+    const errorElement = this._returnErrorElement(inputElement);
     inputElement.classList.remove(this._inputErrorClass);
-    this._setErrorElement(inputElement).classList.remove(this._errorClass);
-    this._setErrorElement(inputElement).textContent = '';
+    errorElement.classList.remove(this._errorClass);
+    errorElement.textContent = '';
   };
 
   //Найти невалидное поле
