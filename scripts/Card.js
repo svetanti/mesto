@@ -1,7 +1,3 @@
-const imagePopup = document.querySelector('#image-popup');
-const photoBig = imagePopup.querySelector('.photo__img');
-const photoBigCaption = imagePopup.querySelector('.photo__caption');
-
 export class Card {
   constructor(data, cardSelector) {
     this._cardSelector = cardSelector;
@@ -42,15 +38,6 @@ export class Card {
     this._cardItem.querySelector('.card__delete').addEventListener('click', (evt) => {
       this._handleCardDelete(evt);
     });
-    this._cardItem.querySelector('.card__photo').addEventListener('click', (evt) => {
-      this._handleCardPopupOpen(evt);
-    });
-    imagePopup.addEventListener('click', (evt) => {
-      this._handleCardPopupClose(evt);
-    });
-    document.addEventListener('keyup', (evt) => {
-      this._handleCardPopupCloseByKey(evt);
-    });
   }
 
   //Лайк
@@ -63,7 +50,7 @@ export class Card {
     const cardToDelete = evt.target.closest('.card');
     cardToDelete.remove();
   }
-
+/*
   //Открыть большое изображение
   _handleCardPopupOpen(evt) {
     const imageToZoom = evt.target;
@@ -86,4 +73,5 @@ export class Card {
       imagePopup.classList.remove('popup_opened');
     }
   }
+  */
 }

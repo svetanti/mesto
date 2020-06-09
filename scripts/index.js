@@ -1,6 +1,7 @@
 //Импортировать классы
 import {FormValidator} from './FormValidator.js';
 import {Card} from './Card.js';
+import PopupWithImage from './PopupWithImage.js';
 
 //Объявить константы
 const initialCards = [
@@ -61,6 +62,19 @@ const prependCard = (cardItem) => {
 initialCards.reverse().forEach((item) => {
   prependCard(item);
 });
+
+//Создание экземпляра класса PopupWithImage
+const popupWithImage = new PopupWithImage('#image-popup');
+
+//Открыть popupWithImage
+photoGallery.addEventListener('click', (evt) => {
+  if (evt.target.matches('.card__photo')) {
+    popupWithImage.open(evt);
+  }
+});
+
+//Закрыть popupWithImage
+popupWithImage.close();
 
 //Поменять класс
 const toggleModalWindow = (popup) => {
