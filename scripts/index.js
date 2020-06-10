@@ -6,48 +6,10 @@ import PopupWithForm from './PopupWithForm.js';
 import UserInfo from './UserInfo.js';
 import Section from './Section.js';
 
+import { initialCards, formSelectors, photoGallery, buttonEditUserInfo } from '../constants/constants.js';
+
 //Объявить константы
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-const formSelectors = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button_submit',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-};
-const photoGallery = document.querySelector('.elements');
 const forms = Array.from(document.querySelectorAll('.popup__container'));
-const userName = document.querySelector('#user-name');
-const userInfo = document.querySelector('#user-info');
-const userPopup = document.querySelector('#user-popup');
-const userForm = document.querySelector('#user-form');
-const buttonEditUserInfo = document.querySelector('.profile__button_action_edit');
-const profileName = document.querySelector('.profile__name');
-const profileAbout = document.querySelector('.profile__about');
 const photoPopup = document.querySelector('#photo-popup');
 const photoForm = document.querySelector('#photo-form');
 const buttonAddPhoto = document.querySelector('.profile__button_action_add');
@@ -80,13 +42,21 @@ const cardList = new Section({
 //Отрисовать карточки
 cardList.renderItems();
 
-//Ерунда пока какая-то
+//Создать экземпляр класса UserInfo
+const userInformation = new UserInfo({
+  userNameSelector: '.profile__name',
+  userInfoSelector: '.profile__about'
+});
+
+//Работает, но нет блокировки кнопки при повторном открытии
 const popupWithUserForm = new PopupWithForm(
   '#user-popup',
-  { handleFormSubmit: (items) => {
-      console.log(items);
-      const userInformation = new UserInfo('#user-name', '#user-info');
-      userInformation.getUserInfo();
+  { handleFormSubmit: (userItems) => {
+      userInformation.setUserInfo(userItems);
+      popupWithUserForm.close();
+    },
+    getProfileInfo: () => {
+      return userInformation.getUserInfo();
     }
   });
 
@@ -94,12 +64,6 @@ const popupWithUserForm = new PopupWithForm(
 buttonEditUserInfo.addEventListener('click', () => {
   popupWithUserForm.open();
 });
-
-//Задать значения полей при открытии userForm по умолчанию
-const setDefaultInputValue = () => {
-  userName.value = profileName.textContent;
-  userInfo.value = profileAbout.textContent;
-};
 
 //Убрать сообщения об ошибках при открытии окна
 const setDefaultErrorState = (formElement) => {
@@ -123,19 +87,7 @@ const setButtonState = (buttonElement, flag) => {
     buttonElement.disabled = false;
   }
 }
-/*
-//Открыть userPopup
-function setOpenUserPopupHandler() {
-  buttonEditUserInfo.addEventListener('click', () => {
-    const buttonSubmit = userForm.querySelector('.popup__button_submit');
-    setButtonState(buttonSubmit, true);
-    setDefaultInputValue();
-    setDefaultErrorState(userForm);
-    toggleModalWindow(userPopup);
-    addKeyCloseEventListener();
-  });
-}
-*/
+
 //Очистить значения полей photoPopup
 const resetInputValue = () => {
   photoName.value = '';
@@ -152,19 +104,6 @@ function setOpenPhotoPopupHandler() {
     toggleModalWindow(photoPopup);
     addKeyCloseEventListener();
   });
-}
-
-//Отправить данные на страницу
-const setSubmitHandler = (formElement, submitForm) => {
-  formElement.addEventListener('submit', submitForm);
-};
-
-//Submit для пользователя
-function handleUserFormSubmit() {
-  profileName.textContent = userName.value;
-  profileAbout.textContent = userInfo.value;
-  toggleModalWindow(userPopup);
-  removeKeyCloseEventListener();
 }
 
 //Submit для фотографий
@@ -185,9 +124,3 @@ forms.forEach((formItem) => {
   const validator = new FormValidator(formSelectors, formItem);
   validator.enableValidation();
 });
-/*
-setTogglePopupHandlers(setOpenUserPopupHandler, userPopup);
-setTogglePopupHandlers(setOpenPhotoPopupHandler, photoPopup);
-setSubmitHandler(userForm, handleUserFormSubmit);
-setSubmitHandler(photoForm, handlePhotoFormSubmit);
-*/

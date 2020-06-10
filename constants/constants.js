@@ -32,8 +32,8 @@ export const formSelectors = {
 };
 export const photoGallery = document.querySelector('.elements');
 export const forms = Array.from(document.querySelectorAll('.popup__container'));
-export const userName = document.querySelector('#user-name');
-export const userInfo = document.querySelector('#user-info');
+export const userName = document.querySelector('#name');
+export const userInfo = document.querySelector('#info');
 export const userPopup = document.querySelector('#user-popup');
 export const userForm = document.querySelector('#user-form');
 export const buttonEditUserInfo = document.querySelector('.profile__button_action_edit');
