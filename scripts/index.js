@@ -2,6 +2,9 @@
 import {FormValidator} from './FormValidator.js';
 import {Card} from './Card.js';
 import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
+import Section from './Section.js';
 
 //Объявить константы
 const initialCards = [
@@ -51,6 +54,7 @@ const buttonAddPhoto = document.querySelector('.profile__button_action_add');
 const photoName = document.querySelector('#photo-name');
 const photoLink = document.querySelector('#photo-link');
 
+/*
 //Вставить карточку в галерею
 const prependCard = (cardItem) => {
   const card = new Card(cardItem, '#card-template');
@@ -62,6 +66,18 @@ const prependCard = (cardItem) => {
 initialCards.reverse().forEach((item) => {
   prependCard(item);
 });
+*/
+
+const cardList = new Section({
+  data: initialCards,
+  renderer: (cardItem) => {
+    const card = new Card(cardItem, '#card-template');
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+  }
+}, '.elements');
+
+cardList.renderItems();
 
 //Создание экземпляра класса PopupWithImage
 const popupWithImage = new PopupWithImage('#image-popup');
@@ -72,9 +88,6 @@ photoGallery.addEventListener('click', (evt) => {
     popupWithImage.open(evt);
   }
 });
-
-//Закрыть popupWithImage
-popupWithImage.close();
 
 //Поменять класс
 const toggleModalWindow = (popup) => {
@@ -99,6 +112,7 @@ const setMouseClosePopupHandler = (popup) => {
   });
 };
 
+/*
 //Повесить слушатель для закрытия попапа по ESC
 const addKeyCloseEventListener = () => {
   document.addEventListener('keyup', handleKeyClosePopup);
@@ -115,7 +129,22 @@ const removeKeyCloseEventListener = () => {
 const setTogglePopupHandlers = (setOpenPopupHandler, popup) => {
   setOpenPopupHandler();
   setMouseClosePopupHandler(popup);
-};
+};*/
+
+
+//Ерунда пока какая-то
+const popupWithUserForm = new PopupWithForm(
+  '#user-popup',
+  { handleFormSubmit: (items) => {
+      console.log(items);
+      const userInformation = new UserInfo('#user-name', '#user-info');
+      userInformation.getUserInfo();
+    }
+  });
+
+buttonEditUserInfo.addEventListener('click', () => {
+  popupWithUserForm.open();
+});
 
 //Задать значения полей при открытии userForm по умолчанию
 const setDefaultInputValue = () => {
@@ -145,7 +174,7 @@ const setButtonState = (buttonElement, flag) => {
     buttonElement.disabled = false;
   }
 }
-
+/*
 //Открыть userPopup
 function setOpenUserPopupHandler() {
   buttonEditUserInfo.addEventListener('click', () => {
@@ -157,7 +186,7 @@ function setOpenUserPopupHandler() {
     addKeyCloseEventListener();
   });
 }
-
+*/
 //Очистить значения полей photoPopup
 const resetInputValue = () => {
   photoName.value = '';
@@ -207,8 +236,9 @@ forms.forEach((formItem) => {
   const validator = new FormValidator(formSelectors, formItem);
   validator.enableValidation();
 });
-
+/*
 setTogglePopupHandlers(setOpenUserPopupHandler, userPopup);
 setTogglePopupHandlers(setOpenPhotoPopupHandler, photoPopup);
 setSubmitHandler(userForm, handleUserFormSubmit);
 setSubmitHandler(photoForm, handlePhotoFormSubmit);
+*/
