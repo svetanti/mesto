@@ -1,6 +1,6 @@
 //Импортировать классы
-import {FormValidator} from './FormValidator.js';
-import {Card} from './Card.js';
+import FormValidator from './FormValidator.js';
+import Card from './Card.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
 import UserInfo from './UserInfo.js';
@@ -54,83 +54,31 @@ const buttonAddPhoto = document.querySelector('.profile__button_action_add');
 const photoName = document.querySelector('#photo-name');
 const photoLink = document.querySelector('#photo-link');
 
-/*
-//Вставить карточку в галерею
-const prependCard = (cardItem) => {
-  const card = new Card(cardItem, '#card-template');
-  const cardElement = card.generateCard();
-  photoGallery.prepend(cardElement);
-}
+//Создать экземпляра класса PopupWithImage
+const popupWithImage = new PopupWithImage('#image-popup');
 
-//Вывести карточки на страницу
-initialCards.reverse().forEach((item) => {
-  prependCard(item);
-});
-*/
-
+//Создать экземпляр класса Section для карточек
 const cardList = new Section({
   data: initialCards,
   renderer: (cardItem) => {
-    const card = new Card(cardItem, '#card-template');
+    const card = new Card(cardItem,
+    {
+    cardSelector: '#card-template',
+    handleCardClick: () => {
+      photoGallery.addEventListener('click', (evt) => {
+        if (evt.target.matches('.card__photo')) {
+          popupWithImage.open(evt);
+        }
+      });
+    }
+  });
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
   }
 }, '.elements');
 
+//Отрисовать карточки
 cardList.renderItems();
-
-//Создание экземпляра класса PopupWithImage
-const popupWithImage = new PopupWithImage('#image-popup');
-
-//Открыть popupWithImage
-photoGallery.addEventListener('click', (evt) => {
-  if (evt.target.matches('.card__photo')) {
-    popupWithImage.open(evt);
-  }
-});
-
-//Поменять класс
-const toggleModalWindow = (popup) => {
-  popup.classList.toggle('popup_opened');
-};
-
-//Закрыть любой попап по ESC
-const handleKeyClosePopup = (evt) => {
-  const popupOpened = document.querySelector('.popup_opened');
-  if (evt.key === 'Escape' || evt.key === 'Esc') {
-    toggleModalWindow(popupOpened);
-    removeKeyCloseEventListener();
-  }
-};
-
-//Закрыть любой попап по клику
-const setMouseClosePopupHandler = (popup) => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.matches('.button_close') || evt.target.matches('.popup')) {
-      toggleModalWindow(popup);
-    }
-  });
-};
-
-/*
-//Повесить слушатель для закрытия попапа по ESC
-const addKeyCloseEventListener = () => {
-  document.addEventListener('keyup', handleKeyClosePopup);
-};
-
-//Удалить слушатель для закрытия попапа по ESC
-const removeKeyCloseEventListener = () => {
-  if (!document.querySelector('.popup_opened')) {
-    document.removeEventListener('keyup', handleKeyClosePopup);
-  }
-};
-
-//Открыть/закрыть любой попап
-const setTogglePopupHandlers = (setOpenPopupHandler, popup) => {
-  setOpenPopupHandler();
-  setMouseClosePopupHandler(popup);
-};*/
-
 
 //Ерунда пока какая-то
 const popupWithUserForm = new PopupWithForm(
@@ -142,6 +90,7 @@ const popupWithUserForm = new PopupWithForm(
     }
   });
 
+//Открыть userPopup
 buttonEditUserInfo.addEventListener('click', () => {
   popupWithUserForm.open();
 });

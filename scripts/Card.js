@@ -1,8 +1,9 @@
-export class Card {
-  constructor(data, cardSelector) {
+export default class Card {
+  constructor(data, { cardSelector, handleCardClick }) {
     this._cardSelector = cardSelector;
     this._name = data.name;
     this._link = data.link;
+    this._handleCardClick = handleCardClick;
   }
 
   //Добавить разметку карточки
@@ -22,6 +23,7 @@ export class Card {
   generateCard() {
     this._cardItem = this._getCardTemplate();
     this._setEventListeners();
+    this._handleCardClick();
     const cardPhoto = this._cardItem.querySelector('.card__photo');
     cardPhoto.src = this._link;
     cardPhoto.alt = this._name;
@@ -50,28 +52,4 @@ export class Card {
     const cardToDelete = evt.target.closest('.card');
     cardToDelete.remove();
   }
-/*
-  //Открыть большое изображение
-  _handleCardPopupOpen(evt) {
-    const imageToZoom = evt.target;
-    photoBig.src = imageToZoom.src;
-    photoBig.alt = imageToZoom.alt;
-    photoBigCaption.textContent = imageToZoom.alt;
-    imagePopup.classList.add('popup_opened');
-  }
-
-  //Закрыть большое изображение по клику
-  _handleCardPopupClose(evt) {
-    if (evt.target.matches('.button_close') || evt.target.matches('.popup')) {
-      imagePopup.classList.remove('popup_opened');
-    }
-  }
-
-  //Закрыть большое изображение по ESC
-  _handleCardPopupCloseByKey(evt) {
-    if (evt.key === 'Escape' || evt.key === 'Esc') {
-      imagePopup.classList.remove('popup_opened');
-    }
-  }
-  */
 }
