@@ -32,15 +32,5 @@ export const formSelectors = {
 };
 export const photoGallery = document.querySelector('.elements');
 export const forms = Array.from(document.querySelectorAll('.popup__container'));
-export const userName = document.querySelector('#name');
-export const userInfo = document.querySelector('#info');
-export const userPopup = document.querySelector('#user-popup');
-export const userForm = document.querySelector('#user-form');
 export const buttonEditUserInfo = document.querySelector('.profile__button_action_edit');
-export const profileName = document.querySelector('.profile__name');
-export const profileAbout = document.querySelector('.profile__about');
-export const photoPopup = document.querySelector('#photo-popup');
-export const photoForm = document.querySelector('#photo-form');
 export const buttonAddPhoto = document.querySelector('.profile__button_action_add');
-export const photoName = document.querySelector('#photo-name');
-export const photoLink = document.querySelector('#photo-link');

@@ -1,31 +1,59 @@
-import Popup from './Popup.js';
+import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, { handleFormSubmit, getProfileInfo }) {
+  constructor(popupSelector, { handleFormSubmit, setInputValues }) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
-    this._getProfileInfo = getProfileInfo;
-    this._formElement = this._popup.querySelector('.popup__container');
+    this._setInputValues = setInputValues;
+    this._formElement = this._popup.querySelector(".popup__container");
+    this._inputList = this._formElement.querySelectorAll(".popup__input");
   }
 
   open() {
     super.open();
-    this._formElement.elements.name.value = this._getProfileInfo().name;
-    this._formElement.elements.info.value = this._getProfileInfo().info;
+    this._setInputValues();
+    this._setInitialButtonState(true);
+    this._setDefaultErrorState();
+  }
+
+  _setInitialButtonState(flag) {
+    const buttonSubmit = this._formElement.querySelector(
+      ".popup__button_submit"
+    );
+    if (flag === true) {
+      buttonSubmit.setAttribute("disabled", true);
+    } else {
+      buttonSubmit.disabled = false;
+    }
+  }
+
+  _setDefaultErrorState() {
+    this._inputList.forEach((inputElement) => {
+      if (inputElement.matches(".popup__input_type_error")) {
+        const errorElement = this._formElement.querySelector(
+          `#${inputElement.id}-error`
+        );
+        inputElement.classList.remove("popup__input_type_error");
+        errorElement.classList.remove("popup__input-error_active");
+        errorElement.textContent = "";
+      }
+    });
   }
 
   _setEventListeners() {
     super._setEventListeners();
-    this._formElement.addEventListener('submit', (evt) => {
+    this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
-    })
+    });
   }
 
   _getInputValues() {
-    this._inputList = this._formElement.querySelectorAll('.popup__input');
     this._formValues = {};
-    this._inputList.forEach(input => this._formValues[input.name] = input.value);
+    this._inputList.forEach(
+      (inputElement) =>
+        (this._formValues[inputElement.name] = inputElement.value)
+    );
 
     return this._formValues;
   }
@@ -35,4 +63,3 @@ export default class PopupWithForm extends Popup {
     this._formElement.reset();
   }
 }
-

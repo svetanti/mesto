@@ -8,6 +8,8 @@
 root = true
 
 [*]
+
+quote_type = single
 # Indentation style
 
 # Possible values - tab, space
