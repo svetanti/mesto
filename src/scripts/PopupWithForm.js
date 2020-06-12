@@ -1,12 +1,12 @@
-import Popup from "./Popup.js";
+import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, { handleFormSubmit, setInputValues }) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
     this._setInputValues = setInputValues;
-    this._formElement = this._popup.querySelector(".popup__container");
-    this._inputList = this._formElement.querySelectorAll(".popup__input");
+    this._formElement = this._popup.querySelector('.popup__container');
+    this._inputList = this._formElement.querySelectorAll('.popup__input');
   }
 
   open() {
@@ -18,10 +18,10 @@ export default class PopupWithForm extends Popup {
 
   _setInitialButtonState(flag) {
     const buttonSubmit = this._formElement.querySelector(
-      ".popup__button_submit"
+      '.popup__button_submit'
     );
     if (flag === true) {
-      buttonSubmit.setAttribute("disabled", true);
+      buttonSubmit.setAttribute('disabled', true);
     } else {
       buttonSubmit.disabled = false;
     }
@@ -29,20 +29,20 @@ export default class PopupWithForm extends Popup {
 
   _setDefaultErrorState() {
     this._inputList.forEach((inputElement) => {
-      if (inputElement.matches(".popup__input_type_error")) {
+      if (inputElement.matches('.popup__input_type_error')) {
         const errorElement = this._formElement.querySelector(
           `#${inputElement.id}-error`
         );
-        inputElement.classList.remove("popup__input_type_error");
-        errorElement.classList.remove("popup__input-error_active");
-        errorElement.textContent = "";
+        inputElement.classList.remove('popup__input_type_error');
+        errorElement.classList.remove('popup__input-error_active');
+        errorElement.textContent = '';
       }
     });
   }
 
   _setEventListeners() {
     super._setEventListeners();
-    this._formElement.addEventListener("submit", (evt) => {
+    this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
     });

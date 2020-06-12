@@ -1,4 +1,5 @@
-//Импортировать классы
+//Импорты
+import '../pages/index.css';
 import FormValidator from './FormValidator.js';
 import Card from './Card.js';
 import PopupWithImage from './PopupWithImage.js';
@@ -21,7 +22,7 @@ const popupWithImage = new PopupWithImage('#image-popup');
 //Создать экземпляр класса Section для карточек
 const cardList = new Section(
   {
-    data: initialCards,
+    data: initialCards.reverse(),
     renderer: (cardItem) => {
       const card = new Card(cardItem, {
         cardSelector: '#card-template',
@@ -49,9 +50,10 @@ const userInfo = new UserInfo({
   userInfoSelector: '.profile__about',
 });
 
-//Создать экземпляр класса PopupWithForm
+//Создать экземпляр класса PopupWithForm для userPopup
 const popupWithUserForm = new PopupWithForm('#user-popup', {
   handleFormSubmit: (userData) => {
+    console.log(userData);
     userInfo.setUserInfo(userData);
     popupWithUserForm.close();
   },
@@ -67,6 +69,7 @@ buttonEditUserInfo.addEventListener('click', () => {
   popupWithUserForm.open();
 });
 
+//Создать экземпляр класса PopupWithForm для photoPopup
 const popupWithPhotoForm = new PopupWithForm('#photo-popup', {
   handleFormSubmit: (photoData) => {
     const userCard = new Section(
