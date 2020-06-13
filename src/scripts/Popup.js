@@ -13,20 +13,18 @@ export default class Popup {
     this._popup.classList.remove('popup_opened');
   }
 
-  _handleEscClose(evt) {
-    if (evt.key === 'Escape' || evt.key === 'Esc') {
-      this.close();
-    }
-  }
-
   _setEventListeners() {
     this._popup.addEventListener('click', (evt) => {
       if (evt.target.matches('.button_close') || evt.target.matches('.popup')) {
         this.close();
       }
     });
-    document.addEventListener('keyup', (evt) => {
-      this._handleEscClose(evt);
-    });
+    const escCloseHandler = (evt) => {
+      if (evt.key === 'Escape' || evt.key === 'Esc') {
+        this.close();
+        document.removeEventListener('keyup', escCloseHandler)
+      }
+    }
+    document.addEventListener('keyup', escCloseHandler);
   }
 }
