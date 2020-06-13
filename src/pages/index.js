@@ -53,7 +53,6 @@ const userInfo = new UserInfo({
 //Создать экземпляр класса PopupWithForm для userPopup
 const popupWithUserForm = new PopupWithForm('#user-popup', {
   handleFormSubmit: (userData) => {
-    console.log(userData);
     userInfo.setUserInfo(userData);
     popupWithUserForm.close();
   },
