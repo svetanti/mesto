@@ -23,7 +23,6 @@ const cardList = new Section(
   {
     data: initialCards.reverse(),
     renderer: (cardItem) => {
-      console.log(cardItem);
       const card = new Card(cardItem, {
         cardSelector: '#card-template',
         handleCardClick: (evt) => {
@@ -67,7 +66,6 @@ buttonEditUserInfo.addEventListener('click', () => {
 //Создать экземпляр класса PopupWithForm для photoPopup
 const popupWithPhotoForm = new PopupWithForm('#photo-popup', {
   handleFormSubmit: (photoData) => {
-    console.log(photoData);
     const newCard = new Card(photoData, {
       cardSelector: '#card-template',
       handleCardClick: (evt) => {

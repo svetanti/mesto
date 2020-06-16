@@ -12,19 +12,15 @@ export default class PopupWithForm extends Popup {
   open() {
     super.open();
     this._setInputValues();
-    this._setInitialButtonState(true);
+    this._setInitialButtonState(isDisabled);
     this._setDefaultErrorState();
   }
 
-  _setInitialButtonState(flag) {
+  _setInitialButtonState(isDisabled) {
     const buttonSubmit = this._formElement.querySelector(
       '.popup__button_submit'
     );
-    if (flag === true) {
-      buttonSubmit.setAttribute('disabled', true);
-    } else {
-      buttonSubmit.disabled = false;
-    }
+    buttonSubmit.disabled = isDisabled;
   }
 
   _setDefaultErrorState() {
