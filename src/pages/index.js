@@ -11,7 +11,6 @@ import {
   initialCards,
   formSelectors,
   forms,
-  photoGallery,
   buttonEditUserInfo,
   buttonAddPhoto,
 } from '../constants/constants.js';
@@ -24,6 +23,7 @@ const cardList = new Section(
   {
     data: initialCards.reverse(),
     renderer: (cardItem) => {
+      console.log(cardItem);
       const card = new Card(cardItem, {
         cardSelector: '#card-template',
         handleCardClick: (evt) => {
@@ -67,25 +67,15 @@ buttonEditUserInfo.addEventListener('click', () => {
 //Создать экземпляр класса PopupWithForm для photoPopup
 const popupWithPhotoForm = new PopupWithForm('#photo-popup', {
   handleFormSubmit: (photoData) => {
-    const userCard = new Section(
-      {
-        data: [photoData],
-        renderer: (cardItem) => {
-          const newCard = new Card(cardItem, {
-            cardSelector: '#card-template',
-            handleCardClick: (evt) => {
-              popupWithImage.open(evt);
-            },
-          });
-          console.log(newCard);
-          const newCardElement = newCard.generateCard();
-          userCard.addItem(newCardElement);
-        },
+    console.log(photoData);
+    const newCard = new Card(photoData, {
+      cardSelector: '#card-template',
+      handleCardClick: (evt) => {
+        popupWithImage.open(evt);
       },
-      '.elements'
-    );
-
-    userCard.renderItems();
+    });
+    const newCardElement = newCard.generateCard();
+    cardList.addItem(newCardElement);
     popupWithPhotoForm.close();
   },
   setInputValues: () => {
