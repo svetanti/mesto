@@ -22,7 +22,6 @@ export default class Card {
   generateCard() {
     this._cardItem = this._getCardTemplate();
     this._setEventListeners();
-    this._handleCardClick();
     const cardPhoto = this._cardItem.querySelector('.card__photo');
     cardPhoto.src = this._link;
     cardPhoto.alt = this._name;
@@ -42,6 +41,11 @@ export default class Card {
       .querySelector('.card__delete')
       .addEventListener('click', (evt) => {
         this._handleCardDelete(evt);
+      });
+    this._cardItem
+      .querySelector('.card__photo')
+      .addEventListener('click', (evt) => {
+        this._handleCardClick(evt);
       });
   }
 

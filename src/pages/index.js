@@ -26,12 +26,8 @@ const cardList = new Section(
     renderer: (cardItem) => {
       const card = new Card(cardItem, {
         cardSelector: '#card-template',
-        handleCardClick: () => {
-          photoGallery.addEventListener('click', (evt) => {
-            if (evt.target.matches('.card__photo')) {
-              popupWithImage.open(evt);
-            }
-          });
+        handleCardClick: (evt) => {
+          popupWithImage.open(evt);
         },
       });
       const cardElement = card.generateCard();
@@ -77,12 +73,8 @@ const popupWithPhotoForm = new PopupWithForm('#photo-popup', {
         renderer: (cardItem) => {
           const newCard = new Card(cardItem, {
             cardSelector: '#card-template',
-            handleCardClick: () => {
-              photoGallery.addEventListener('click', (evt) => {
-                if (evt.target.matches('.card__photo')) {
-                  popupWithImage.open(evt);
-                }
-              });
+            handleCardClick: (evt) => {
+              popupWithImage.open(evt);
             },
           });
           console.log(newCard);
