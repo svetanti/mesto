@@ -12,7 +12,7 @@ export default class PopupWithForm extends Popup {
   open() {
     super.open();
     this._setInputValues();
-    this._setInitialButtonState(isDisabled);
+    this._setInitialButtonState(true);
     this._setDefaultErrorState();
   }
 
