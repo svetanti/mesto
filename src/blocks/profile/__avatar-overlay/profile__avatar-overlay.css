@@ -1,0 +1,24 @@
+.profile__avatar-overlay {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
+
+@media screen and (max-width: 980px) {
+  .profile__avatar-overlay {
+    margin-right: 3vw;
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__avatar-overlay {
+    width: 120px;
+    height: 120px;
+  }
+}

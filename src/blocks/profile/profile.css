@@ -1,3 +1,4 @@
+@import url('__avatar-overlay/profile__avatar-overlay.css');
 @import url('__avatar/profile__avatar.css');
 @import url('__info/profile__info.css');
 @import url('__name/profile__name.css');
@@ -5,8 +6,10 @@
 @import url('__button/profile__button.css');
 @import url('__button/_action/profile__button_action_edit.css');
 @import url('__button/_action/profile__button_action_add.css');
+@import url('__button/_action/profile__button_action_avatar-change.css');
 
 .profile {
+  position: relative;
   width: 100%;
   padding: 40px 0 51px;
   margin: 0;

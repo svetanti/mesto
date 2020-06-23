@@ -1,35 +1,52 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
-    <meta name="description" content="Задание девятого спринта на Яндекс.Практикуме">
-    <meta name="keywords" content="html, css, javascript">
-    <meta name="author" content="Светлана Антипова">
+    <meta
+      name="description"
+      content="Задание девятого спринта на Яндекс.Практикуме"
+    />
+    <meta name="keywords" content="html, css, javascript" />
+    <meta name="author" content="Светлана Антипова" />
   </head>
   <body>
     <div class="page">
       <!--Секция header-->
       <header class="header">
-        <img src="images/header/logo.svg" alt="Логотип сайта" class="logo">
-        <h1 class="visually-hidden">Место: интерактивный сервис для добавления фотографий</h1>
+        <img src="images/header/logo.svg" alt="Логотип сайта" class="logo" />
+        <h1 class="visually-hidden">
+          Место: интерактивный сервис для добавления фотографий
+        </h1>
       </header>
       <!--Секция main-->
       <main class="main">
         <!--Секция profile-->
         <section class="profile">
-          <img src="images/profile/avatar.jpg" alt="Аватар пользователя" class="profile__avatar">
+          <div class="profile__avatar-overlay">
+            <img
+              src="images/profile/avatar.jpg"
+              alt="Аватар пользователя"
+              class="profile__avatar"
+            />
+            <button class="profile__avatar-change"></button>
+          </div>
           <div class="profile__info">
-            <button type="button" class="button profile__button profile__button_action_edit"></button>
+            <button
+              type="button"
+              class="button profile__button profile__button_action_edit"
+            ></button>
             <p class="profile__name"></p>
             <p class="profile__about"></p>
           </div>
-          <button type="button" class="button profile__button profile__button_action_add"></button>
+          <button
+            type="button"
+            class="button profile__button profile__button_action_add"
+          ></button>
         </section>
         <!--Секция elements-->
-        <ul class="elements">
-        </ul>
+        <ul class="elements"></ul>
       </main>
       <!--Секция footer-->
       <footer class="footer">
@@ -38,69 +55,127 @@
       <!--Попап imagePopup-->
       <div class="photo popup" id="image-popup">
         <figure class="photo__figure">
-          <button type="reset" class="photo__close button button_close"></button>
-          <img class="photo__img" src="#" alt="">
+          <button
+            type="reset"
+            class="photo__close button button_close"
+          ></button>
+          <img class="photo__img" src="#" alt="" />
           <figcaption class="photo__caption"></figcaption>
         </figure>
       </div>
       <!--Попап userForm-->
       <div class="popup" id="user-popup">
         <form class="popup__container" id="user-form" novalidate>
-          <button type="reset" class="button button_close popup__button popup__button_close"></button>
+          <button
+            type="reset"
+            class="button button_close popup__button popup__button_close"
+          ></button>
           <fieldset class="popup__input-container">
             <legend class="popup__heading">Редактировать профиль</legend>
             <label for="name" class="popup__field">
-              <input type="text" class="popup__input" id="name" name="name" placeholder="Имя" minlength="2" maxlength="40" pattern="[А-Яа-яA-Za-z -]{1,}" required>
-              <span class='popup__input-error' id='name-error'></span>
+              <input
+                type="text"
+                class="popup__input"
+                id="name"
+                name="name"
+                placeholder="Имя"
+                minlength="2"
+                maxlength="40"
+                pattern="[А-Яа-яA-Za-z -]{1,}"
+                required
+              />
+              <span class="popup__input-error" id="name-error"></span>
             </label>
             <label for="info" class="popup__field">
-              <input type="text" class="popup__input" id="info" name="info" placeholder="О себе" minlength="2" maxlength="200" required>
-              <span class='popup__input-error' id='info-error'></span>
+              <input
+                type="text"
+                class="popup__input"
+                id="info"
+                name="info"
+                placeholder="О себе"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="popup__input-error" id="info-error"></span>
             </label>
           </fieldset>
-          <button type="submit" class="button popup__button popup__button_submit">Сохранить</button>
+          <button
+            type="submit"
+            class="button popup__button popup__button_submit"
+          >
+            Сохранить
+          </button>
         </form>
       </div>
       <!--Попап photoForm-->
       <div class="popup" id="photo-popup">
         <form class="popup__container" id="photo-form" novalidate>
-          <button type="reset" class="button button_close popup__button popup__button_close"></button>
+          <button
+            type="reset"
+            class="button button_close popup__button popup__button_close"
+          ></button>
           <fieldset class="popup__input-container">
             <legend class="popup__heading">Новое место</legend>
             <label for="name" class="popup__field">
-              <input class="popup__input" id="name" name="name" placeholder="Название" minlength="1" maxlength="30" required>
-              <span class='popup__input-error' id='name-error'></span>
-           </label>
+              <input
+                class="popup__input"
+                id="name"
+                name="name"
+                placeholder="Название"
+                minlength="1"
+                maxlength="30"
+                required
+              />
+              <span class="popup__input-error" id="name-error"></span>
+            </label>
             <label for="link" class="popup__field">
-              <input type="url" class="popup__input" id="link" name="link" placeholder="Ссылка на картинку" required>
-              <span class='popup__input-error' id='link-error'></span>
+              <input
+                type="url"
+                class="popup__input"
+                id="link"
+                name="link"
+                placeholder="Ссылка на картинку"
+                required
+              />
+              <span class="popup__input-error" id="link-error"></span>
             </label>
           </fieldset>
-          <button type="submit" class="button popup__button popup__button_submit">Создать</button>
+          <button
+            type="submit"
+            class="button popup__button popup__button_submit"
+          >
+            Создать
+          </button>
         </form>
       </div>
     </div>
-     <!--Попап delete-->
-     <div class="popup">
+    <!--Попап delete-->
+    <div class="popup">
       <div class="popup__container popup__container_type_delete">
         <h2 class="popup__heading">Вы уверены?</h2>
-        <button type="reset" class="button button_close popup__button popup__button_close"></button>
-        <button type="submit" class="button popup__button popup__button_submit">Да</button>
+        <button
+          type="reset"
+          class="button button_close popup__button popup__button_close"
+        ></button>
+        <button type="submit" class="button popup__button popup__button_submit">
+          Да
+        </button>
       </div>
     </div>
-  <!--Card template-->
-  <template id="card-template">
-    <li class="card">
-      <button type="button" class="card__delete button"></button>
-      <div class="card__container">
-        <img src="#" alt="" class="card__photo">
-      </div>
-      <h2 class="card__caption"></h2>
-      <div class="card__like-block">
-        <button type="button" class="card__like button"></button>
-        <span class="card__counter">0</span>
-      </div>
-    </li>
-  </template>
+    <!--Card template-->
+    <template id="card-template">
+      <li class="card">
+        <button type="button" class="card__delete button"></button>
+        <div class="card__container">
+          <img src="#" alt="" class="card__photo" />
+        </div>
+        <h2 class="card__caption"></h2>
+        <div class="card__like-block">
+          <button type="button" class="card__like button"></button>
+          <span class="card__counter">0</span>
+        </div>
+      </li>
+    </template>
   </body>
 </html>
