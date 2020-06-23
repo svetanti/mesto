@@ -11,6 +11,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   transition: background-color .7s ease;
+  outline: none;
 }
 
 .profile__avatar-change:hover {
@@ -21,3 +22,4 @@
   background-position: center;
   cursor: pointer;
 }
+

@@ -150,6 +150,35 @@
         </form>
       </div>
     </div>
+      <!--Попап avatar-->
+      <div class="popup" id="avatar-popup">
+        <form class="popup__container popup__container_type_avatar" id="avatar-form" novalidate>
+          <button
+            type="reset"
+            class="button button_close popup__button popup__button_close"
+          ></button>
+          <fieldset class="popup__input-container">
+            <legend class="popup__heading">Обновить аватар</legend>
+            <label for="url" class="popup__field">
+              <input
+                class="popup__input"
+                id="url"
+                name="url"
+                placeholder="Ссылка на аватар"
+                required
+              />
+              <span class="popup__input-error" id="name-error"></span>
+            </label>
+          </fieldset>
+          <button
+            type="submit"
+            class="button popup__button popup__button_submit"
+          >
+            Сохранить
+          </button>
+        </form>
+      </div>
+    </div>
     <!--Попап delete-->
     <div class="popup">
       <div class="popup__container popup__container_type_delete">
