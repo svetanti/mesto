@@ -1,7 +1,6 @@
 .card__like {
   width: 21px;
   height: 18px;
-  margin: 31px 18px 0 0;
   background-color: #fff;
   background-image: url('../../../images/card/like.svg');
   border: none;
@@ -9,11 +8,4 @@
   background-repeat: no-repeat;
   grid-area: like;
   justify-self: end;
-}
-
-@media screen and (max-width: 980px) {
-  .card__like {
-    margin-top: 0;
-    align-self: center;
-  }
 }

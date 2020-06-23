@@ -5,6 +5,10 @@
   position: relative;
 }
 
+.popup__field:first-of-type {
+  margin-top: 54px;
+}
+
 .popup__field:last-of-type {
   margin-bottom: 0;
 }
@@ -13,5 +17,8 @@
   .popup__field {
     height: 22px;
     margin-bottom: 25px;
+  }
+  .popup__field:first-of-type {
+    margin-top: 32px;
   }
 }

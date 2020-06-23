@@ -6,6 +6,7 @@ import PopupWithImage from '../scripts/PopupWithImage.js';
 import PopupWithForm from '../scripts/PopupWithForm.js';
 import UserInfo from '../scripts/UserInfo.js';
 import Section from '../scripts/Section.js';
+import Api from '../scripts/Api.js'
 
 import {
   initialCards,

@@ -2,7 +2,7 @@
   width: 358px;
   height: 50px;
   display: block;
-  margin: 0 auto 36px;
+  margin: 0 auto 0;
   background-color: #000;
   border-radius: 2px;
   color: #fff;
@@ -23,6 +23,5 @@
     width: 83%;
     height: 40px;
     font-size: 0.875rem;
-    margin-bottom: 30px;
   }
 }

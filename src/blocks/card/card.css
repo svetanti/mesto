@@ -2,7 +2,9 @@
 @import url('__photo/card__photo.css');
 @import url('__delete/card__delete.css');
 @import url('__caption/card__caption.css');
+@import url('__like-block/card__like-block.css');
 @import url('__like/card__like.css');
+@import url('__counter/card__counter.css');
 @import url('__like/_active/card__like_active.css');
 
 .card {
@@ -24,6 +26,7 @@
   grid-column-gap: 10px;
   grid-template-rows: min-content 1fr;
   grid-template-columns: 1fr min-content;
+  align-items: center;
   grid-template-areas:
     'photo photo'
     'caption like';
