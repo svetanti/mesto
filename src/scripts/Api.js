@@ -4,17 +4,36 @@ class Api {
     this._headers = options.headers;
   }
 
+  //Установить начальные данные пользователя
+  getInitialUserInfo() {
+    return fetch(`${this._url}users/me`, { headers: this._headers })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch((err) => console.log(`Всё пошло не так: ${err}`));
+  }
+
   getInitialCards() {
-    // ...
+    return fetch(`${this._url}cards`, { headers: this._headers})
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res.status);
+    })
+    .catch((err) => console.log(`Всё снова пошло не так: ${err}`))
   }
 
   // другие методы работы с API
 }
 
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-42',
+export const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/',
   headers: {
-    authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6',
-    'Content-Type': 'application/json'
-  }
+    authorization: 'b40f325a-73c8-493d-8833-d885268eb953',
+    'Content-Type': 'application/json',
+  },
 });

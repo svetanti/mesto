@@ -1,5 +1,5 @@
 import arkhyz from '../images/cards/arkhyz.jpg'
-
+/*
 export const initialCards = [
   {
     name: 'Архыз',
@@ -25,7 +25,7 @@ export const initialCards = [
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
-];
+];*/
 export const formSelectors = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button_submit',

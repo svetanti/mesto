@@ -6,10 +6,9 @@ import PopupWithImage from '../scripts/PopupWithImage.js';
 import PopupWithForm from '../scripts/PopupWithForm.js';
 import UserInfo from '../scripts/UserInfo.js';
 import Section from '../scripts/Section.js';
-import Api from '../scripts/Api.js'
+import { api } from '../scripts/Api.js';
 
 import {
-  initialCards,
   formSelectors,
   forms,
   buttonEditUserInfo,
@@ -22,7 +21,6 @@ const popupWithImage = new PopupWithImage('#image-popup');
 //Создать экземпляр класса Section для карточек
 const cardList = new Section(
   {
-    data: initialCards.reverse(),
     renderer: (cardItem) => {
       const card = new Card(cardItem, {
         cardSelector: '#card-template',
@@ -38,13 +36,17 @@ const cardList = new Section(
 );
 
 //Отрисовать карточки
-cardList.renderItems();
+cardList.renderItems(api.getInitialCards());
 
 //Создать экземпляр класса UserInfo
 const userInfo = new UserInfo({
   userNameSelector: '.profile__name',
   userInfoSelector: '.profile__about',
+  userAvatarSelector: '.profile__avatar',
 });
+
+//Загрузить начальную информацию о пользователе
+userInfo.setUserInfo(api.getInitialUserInfo());
 
 //Создать экземпляр класса PopupWithForm для userPopup
 const popupWithUserForm = new PopupWithForm('#user-popup', {
@@ -55,7 +57,7 @@ const popupWithUserForm = new PopupWithForm('#user-popup', {
   setInputValues: () => {
     const formElement = document.querySelector('#user-form');
     formElement.elements.name.value = userInfo.getUserInfo().name;
-    formElement.elements.info.value = userInfo.getUserInfo().info;
+    formElement.elements.about.value = userInfo.getUserInfo().about;
   },
 });
 
