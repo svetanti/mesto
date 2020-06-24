@@ -4,7 +4,7 @@ class Api {
     this._headers = options.headers;
   }
 
-  //Установить начальные данные пользователя
+  //Получить начальные данные пользователя
   getInitialUserInfo() {
     return fetch(`${this._url}users/me`, { headers: this._headers })
       .then((res) => {
@@ -16,18 +16,36 @@ class Api {
       .catch((err) => console.log(`Всё пошло не так: ${err}`));
   }
 
+  //Получить начальные карточки
   getInitialCards() {
-    return fetch(`${this._url}cards`, { headers: this._headers})
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
-    .catch((err) => console.log(`Всё снова пошло не так: ${err}`))
+    return fetch(`${this._url}cards`, { headers: this._headers })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch((err) => console.log(`Всё снова пошло не так: ${err}`));
   }
 
-  // другие методы работы с API
+  //Обновить информацию о пользователе
+  updateUserInfo(newUserInfo) {
+    return fetch(`${this._url}users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: newUserInfo.name,
+        about: newUserInfo.about,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch((err) => console.log(`Всё сломалось, ищем ошибку: ${err}`));
+  }
 }
 
 export const api = new Api({

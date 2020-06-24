@@ -6,7 +6,7 @@ import PopupWithImage from '../scripts/PopupWithImage.js';
 import PopupWithForm from '../scripts/PopupWithForm.js';
 import UserInfo from '../scripts/UserInfo.js';
 import Section from '../scripts/Section.js';
-import { api } from '../scripts/Api.js';
+import {api} from '../scripts/Api.js';
 
 import {
   formSelectors,
@@ -17,6 +17,7 @@ import {
 
 //Создать экземпляра класса PopupWithImage
 const popupWithImage = new PopupWithImage('#image-popup');
+
 
 //Создать экземпляр класса Section для карточек
 const cardList = new Section(
@@ -50,8 +51,9 @@ userInfo.setUserInfo(api.getInitialUserInfo());
 
 //Создать экземпляр класса PopupWithForm для userPopup
 const popupWithUserForm = new PopupWithForm('#user-popup', {
-  handleFormSubmit: (userData) => {
-    userInfo.setUserInfo(userData);
+  handleFormSubmit: () => {
+    const inputValues = popupWithUserForm.getInputValues();
+    userInfo.setUserInfo(api.updateUserInfo(inputValues));
     popupWithUserForm.close();
   },
   setInputValues: () => {
