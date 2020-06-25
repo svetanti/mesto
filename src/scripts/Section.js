@@ -12,6 +12,7 @@ export default class Section {
 
   renderItems(api) {
     api.then((data) => {
+      console.log(data);
       data.forEach((item) => {
         this._renderer(item);
       });

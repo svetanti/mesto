@@ -46,6 +46,24 @@ class Api {
       })
       .catch((err) => console.log(`Всё сломалось, ищем ошибку: ${err}`));
   }
+
+  addNewCard(newCard) {
+    return fetch(`${this._url}cards`, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: newCard.name,
+        link: newCard.link,
+      }),
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch((err) => console.log(`Ничего не работает: ${err}`));
+  }
 }
 
 export const api = new Api({

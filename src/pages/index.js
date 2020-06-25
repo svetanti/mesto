@@ -6,7 +6,7 @@ import PopupWithImage from '../scripts/PopupWithImage.js';
 import PopupWithForm from '../scripts/PopupWithForm.js';
 import UserInfo from '../scripts/UserInfo.js';
 import Section from '../scripts/Section.js';
-import {api} from '../scripts/Api.js';
+import { api } from '../scripts/Api.js';
 
 import {
   formSelectors,
@@ -17,7 +17,6 @@ import {
 
 //Создать экземпляра класса PopupWithImage
 const popupWithImage = new PopupWithImage('#image-popup');
-
 
 //Создать экземпляр класса Section для карточек
 const cardList = new Section(
@@ -70,15 +69,20 @@ buttonEditUserInfo.addEventListener('click', () => {
 
 //Создать экземпляр класса PopupWithForm для photoPopup
 const popupWithPhotoForm = new PopupWithForm('#photo-popup', {
-  handleFormSubmit: (photoData) => {
-    const newCard = new Card(photoData, {
-      cardSelector: '#card-template',
-      handleCardClick: (evt) => {
-        popupWithImage.open(evt);
-      },
-    });
-    const newCardElement = newCard.generateCard();
+  handleFormSubmit: () => {
+    const inputValues = popupWithPhotoForm.getInputValues();
+    const userCard = api.addNewCard(inputValues)
+    .then((data) => {
+      console.log(data);
+      const newCard = new Card(data, {
+        cardSelector: '#card-template',
+        handleCardClick: (evt) => {
+          popupWithImage.open(evt);
+        },
+      });
+      const newCardElement = newCard.generateCard();
     cardList.addItem(newCardElement);
+    });
     popupWithPhotoForm.close();
   },
   setInputValues: () => {
