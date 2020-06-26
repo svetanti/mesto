@@ -1,8 +1,12 @@
 export default class Card {
-  constructor(data, { cardSelector, handleCardClick }) {
+  constructor(data, like, dislike, { cardSelector, handleCardClick }) {
     this._cardSelector = cardSelector;
     this._name = data.name;
     this._link = data.link;
+    this._owner = data.owner;
+    this._likes = data.likes;
+    this._like = like;
+    this._dislike = dislike;
     this._handleCardClick = handleCardClick;
   }
 
@@ -19,13 +23,35 @@ export default class Card {
   }
 
   //Сгенерировать карточку
-  generateCard() {
+  generateCard(api) {
     this._cardItem = this._getCardTemplate();
+
     this._setEventListeners();
+
     const cardPhoto = this._cardItem.querySelector('.card__photo');
     cardPhoto.src = this._link;
     cardPhoto.alt = this._name;
     this._cardItem.querySelector('.card__caption').textContent = this._name;
+
+    this._cardItem.querySelector(
+      '.card__counter'
+    ).textContent = `${this._likes.length}`;
+
+    api.then((user) => {
+      if (user._id !== this._owner._id) {
+        this._cardItem.querySelector('.card__delete').style.display = 'none';
+      }
+    });
+
+    api.then((user) => {
+      this._likes.forEach((likeObject) => {
+        if (user._id === likeObject._id) {
+          this._cardItem
+            .querySelector('.card__like')
+            .classList.add('card__like_active');
+        }
+      });
+    });
 
     return this._cardItem;
   }
@@ -51,9 +77,22 @@ export default class Card {
 
   //Лайк
   _handleCardLike() {
-    this._cardItem
-      .querySelector('.card__like')
-      .classList.toggle('card__like_active');
+    const likeButton = this._cardItem.querySelector('.card__like');
+    const counter = this._cardItem.querySelector('.card__counter');
+
+    if (!likeButton.classList.contains('card__like_active')) {
+      this._like.then((likesData) => {
+        console.log(likesData);
+        likeButton.classList.add('card__like_active');
+        counter.textContent = `${likesData.likes.length}`;
+      });
+    } else {
+      this._dislike.then((likesData) => {
+        console.log(likesData);
+        likeButton.classList.remove('card__like_active');
+        counter.textContent = `${likesData.likes.length}`;
+      });
+    }
   }
 
   //Удаление

@@ -5,7 +5,7 @@ class Api {
   }
 
   //Получить начальные данные пользователя
-  getInitialUserInfo() {
+  getUserInfo() {
     return fetch(`${this._url}users/me`, { headers: this._headers })
       .then((res) => {
         if (res.ok) {
@@ -47,6 +47,7 @@ class Api {
       .catch((err) => console.log(`Всё сломалось, ищем ошибку: ${err}`));
   }
 
+  //Добавить новую карточку
   addNewCard(newCard) {
     return fetch(`${this._url}cards`, {
       method: 'POST',
@@ -63,6 +64,41 @@ class Api {
         return Promise.reject(res.status);
       })
       .catch((err) => console.log(`Ничего не работает: ${err}`));
+  }
+
+  //Отобразить количество лайков
+  likeCard(card) {
+    return fetch(`${this._url}cards/likes/${card._id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        likes: card.likes,
+      }),
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch((err) => console.log(`Не работает: ${err}`));
+  }
+
+  dislikeCard(card) {
+    return fetch(`${this._url}cards/likes/${card._id}`, {
+      method: 'DELETE',
+      body: JSON.stringify({
+        likes: card.likes,
+      }),
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch((err) => console.log(`Ошбика: ${err}`));
   }
 }
 

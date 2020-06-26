@@ -18,17 +18,26 @@ import {
 //Создать экземпляра класса PopupWithImage
 const popupWithImage = new PopupWithImage('#image-popup');
 
+//const popupDeleteCard = new
+
 //Создать экземпляр класса Section для карточек
 const cardList = new Section(
   {
     renderer: (cardItem) => {
-      const card = new Card(cardItem, {
-        cardSelector: '#card-template',
-        handleCardClick: (evt) => {
-          popupWithImage.open(evt);
-        },
-      });
-      const cardElement = card.generateCard();
+      //console.log(cardItem);
+      const card = new Card(
+        cardItem,
+        api.likeCard(cardItem),
+        api.dislikeCard(cardItem),
+        {
+          cardSelector: '#card-template',
+
+          handleCardClick: (evt) => {
+            popupWithImage.open(evt);
+          },
+        }
+      );
+      const cardElement = card.generateCard(api.getUserInfo());
       cardList.addItem(cardElement);
     },
   },
@@ -45,8 +54,10 @@ const userInfo = new UserInfo({
   userAvatarSelector: '.profile__avatar',
 });
 
-//Загрузить начальную информацию о пользователе
-userInfo.setUserInfo(api.getInitialUserInfo());
+//Загрузить информацию о пользователе
+api.getUserInfo().then((data) => {
+  userInfo.setUserInfo(data);
+});
 
 //Создать экземпляр класса PopupWithForm для userPopup
 const popupWithUserForm = new PopupWithForm('#user-popup', {
@@ -57,8 +68,10 @@ const popupWithUserForm = new PopupWithForm('#user-popup', {
   },
   setInputValues: () => {
     const formElement = document.querySelector('#user-form');
-    formElement.elements.name.value = userInfo.getUserInfo().name;
-    formElement.elements.about.value = userInfo.getUserInfo().about;
+    api.getUserInfo().then((data) => {
+      formElement.elements.name.value = data.name;
+      formElement.elements.about.value = data.about;
+    });
   },
 });
 
@@ -71,17 +84,15 @@ buttonEditUserInfo.addEventListener('click', () => {
 const popupWithPhotoForm = new PopupWithForm('#photo-popup', {
   handleFormSubmit: () => {
     const inputValues = popupWithPhotoForm.getInputValues();
-    const userCard = api.addNewCard(inputValues)
-    .then((data) => {
-      console.log(data);
+    api.addNewCard(inputValues).then((data) => {
       const newCard = new Card(data, {
         cardSelector: '#card-template',
         handleCardClick: (evt) => {
           popupWithImage.open(evt);
         },
       });
-      const newCardElement = newCard.generateCard();
-    cardList.addItem(newCardElement);
+      const newCardElement = newCard.generateCard(api.getUserInfo());
+      cardList.addItem(newCardElement);
     });
     popupWithPhotoForm.close();
   },
