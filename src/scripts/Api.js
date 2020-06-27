@@ -100,6 +100,21 @@ class Api {
       })
       .catch((err) => console.log(`Ошбика: ${err}`));
   }
+
+  deletePhoto(card) {
+    return fetch(`${this._url}cards/${card._id}`, {
+      method: 'DELETE',
+      body: JSON.stringify(card),
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(res.status);
+      })
+      .catch((err) => console.log(`Всё пропало! ${err}`));
+  }
 }
 
 export const api = new Api({

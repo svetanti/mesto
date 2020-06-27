@@ -4,6 +4,7 @@ import FormValidator from '../scripts/FormValidator.js';
 import Card from '../scripts/Card.js';
 import PopupWithImage from '../scripts/PopupWithImage.js';
 import PopupWithForm from '../scripts/PopupWithForm.js';
+import popupDeleteCard from '../scripts/PopupDeleteCard.js';
 import UserInfo from '../scripts/UserInfo.js';
 import Section from '../scripts/Section.js';
 import { api } from '../scripts/Api.js';
@@ -18,22 +19,26 @@ import {
 //Создать экземпляра класса PopupWithImage
 const popupWithImage = new PopupWithImage('#image-popup');
 
-//const popupDeleteCard = new
-
 //Создать экземпляр класса Section для карточек
 const cardList = new Section(
   {
     renderer: (cardItem) => {
-      //console.log(cardItem);
       const card = new Card(
         cardItem,
         api.likeCard(cardItem),
         api.dislikeCard(cardItem),
         {
           cardSelector: '#card-template',
-
           handleCardClick: (evt) => {
             popupWithImage.open(evt);
+          },
+          confirmDelete: () => {
+            const confirmPopup = new popupDeleteCard(
+              '#popup-delete',
+              api.deletePhoto(cardItem),
+              cardItem
+            );
+            confirmPopup.open();
           },
         }
       );
@@ -85,13 +90,29 @@ const popupWithPhotoForm = new PopupWithForm('#photo-popup', {
   handleFormSubmit: () => {
     const inputValues = popupWithPhotoForm.getInputValues();
     api.addNewCard(inputValues).then((data) => {
-      const newCard = new Card(data, {
-        cardSelector: '#card-template',
-        handleCardClick: (evt) => {
-          popupWithImage.open(evt);
-        },
-      });
+
+      const newCard = new Card(
+        data,
+        api.likeCard(data),
+        api.dislikeCard(data),
+        {
+          cardSelector: '#card-template',
+          handleCardClick: (evt) => {
+            popupWithImage.open(evt);
+          },
+
+          confirmDelete: () => {
+            const confirmPopup = new popupDeleteCard(
+              '#popup-delete',
+              api.deletePhoto(data),
+              data
+            );
+            confirmPopup.open();
+          },
+        }
+      );
       const newCardElement = newCard.generateCard(api.getUserInfo());
+      console.log(newCardElement);
       cardList.addItem(newCardElement);
     });
     popupWithPhotoForm.close();

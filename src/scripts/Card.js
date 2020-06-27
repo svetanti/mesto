@@ -1,12 +1,14 @@
 export default class Card {
-  constructor(data, like, dislike, { cardSelector, handleCardClick }) {
+  constructor(data, like, dislike, { cardSelector, handleCardClick, confirmDelete }) {
     this._cardSelector = cardSelector;
     this._name = data.name;
     this._link = data.link;
     this._owner = data.owner;
     this._likes = data.likes;
+    this._id = data._id;
     this._like = like;
     this._dislike = dislike;
+    this._confirmDelete = confirmDelete;
     this._handleCardClick = handleCardClick;
   }
 
@@ -28,6 +30,8 @@ export default class Card {
 
     this._setEventListeners();
 
+    this._cardItem.id = this._id;
+
     const cardPhoto = this._cardItem.querySelector('.card__photo');
     cardPhoto.src = this._link;
     cardPhoto.alt = this._name;
@@ -44,14 +48,13 @@ export default class Card {
     });
 
     api.then((user) => {
-      this._likes.forEach((likeObject) => {
-        if (user._id === likeObject._id) {
-          this._cardItem
-            .querySelector('.card__like')
-            .classList.add('card__like_active');
-        }
-      });
+    this._likes.forEach((likeObject) => {
+      if (user._id === likeObject._id) {
+        this._cardItem.querySelector('.card__like').classList.add('card__like_active');
+      }
+
     });
+  })
 
     return this._cardItem;
   }
@@ -66,7 +69,10 @@ export default class Card {
     this._cardItem
       .querySelector('.card__delete')
       .addEventListener('click', (evt) => {
-        this._handleCardDelete(evt);
+        this._confirmDelete();
+        //this._handleCardDelete(evt);
+
+
       });
     this._cardItem
       .querySelector('.card__photo')
@@ -82,13 +88,11 @@ export default class Card {
 
     if (!likeButton.classList.contains('card__like_active')) {
       this._like.then((likesData) => {
-        console.log(likesData);
         likeButton.classList.add('card__like_active');
         counter.textContent = `${likesData.likes.length}`;
       });
     } else {
       this._dislike.then((likesData) => {
-        console.log(likesData);
         likeButton.classList.remove('card__like_active');
         counter.textContent = `${likesData.likes.length}`;
       });

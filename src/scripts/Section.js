@@ -12,7 +12,7 @@ export default class Section {
 
   renderItems(api) {
     api.then((data) => {
-      data.forEach((item) => {
+      data.reverse().forEach((item) => {
         this._renderer(item);
       });
     })
