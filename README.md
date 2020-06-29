@@ -1,4 +1,4 @@
-# Проектная работа 8: Место
+ # Проектная работа 8: Место
 ---
 
 Проект создан с использованием возможностей HTML, CSS и JavaScript и адаптирован для просмотра на разных устройствах. При вёрстке использован подход Desktop First. Реализована возможность редактирования имени пользователя и информации о нем.
@@ -9,7 +9,9 @@
 
 В проектной работе проведен рефакторинг кода. Функционал, отвечающий за создание карточек и валидацию, вынесен в отдельные классы. Скрипт разбит на три модуля.
 
-В 8 проектной работе весь js-код разбит на классы, константы вынесены в отдельный модуль. Установлен Webpack, Babel, настроена обработка CSS, HTML, изображений и шрифтов.
+В проектной работе весь js-код разбит на классы, константы вынесены в отдельный модуль. Установлен Webpack, Babel, настроена обработка CSS, HTML, изображений и шрифтов.
+
+Проект подключен к серверу. Настроена возможность редактироавть аватар, добавлено подтверждение при удалении фотографии.
 
 ---
 ## Технологии
@@ -22,6 +24,7 @@
 * Использование JavaScript для валидации форм
 * ООП
 * Webpack
+* API
 
 ## Ссылка на проект
 https://svetanti.github.io/mesto/
@@ -39,6 +42,8 @@ The project is all about code refactoring. The parts of code describing cards cr
 
 In the 8th project the js-code is devided into classes, constancts are encapsulated in a single module. The Webpack is installed, the Babel, CSS and HTML-plugins, images and fonts loaders are set.
 
+The project is connected to a server. The user can change an avatar. Aslo added the confirmation before deleting  a photo.
+
 ---
 
 ## Technologies
@@ -51,6 +56,7 @@ In the 8th project the js-code is devided into classes, constancts are encapsula
 * JavaScript for form validation
 * OOP
 * Webpack
+* API
 
 ## URL
 https://svetanti.github.io/mesto/
