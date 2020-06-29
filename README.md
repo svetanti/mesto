@@ -1,4 +1,4 @@
- # Проектная работа 8: Место
+ # Проектная работа 9: Место
 ---
 
 Проект создан с использованием возможностей HTML, CSS и JavaScript и адаптирован для просмотра на разных устройствах. При вёрстке использован подход Desktop First. Реализована возможность редактирования имени пользователя и информации о нем.
@@ -29,7 +29,7 @@
 ## Ссылка на проект
 https://svetanti.github.io/mesto/
 
-# Project 8: Mesto
+# Project 9: Mesto
 ---
 
 The project is created using some features of HTML, CSS and JavaScript and it is adapted for viewing on different devices. The desktop-first approach is used. In the project is realized possibility to edit user name and user info.
