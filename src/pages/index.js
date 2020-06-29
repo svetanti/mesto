@@ -14,6 +14,7 @@ import {
   forms,
   buttonEditUserInfo,
   buttonAddPhoto,
+  buttonChangeAvatar,
 } from '../constants/constants.js';
 
 //Создать экземпляра класса PopupWithImage
@@ -23,27 +24,24 @@ const popupWithImage = new PopupWithImage('#image-popup');
 const cardList = new Section(
   {
     renderer: (cardItem) => {
-      const card = new Card(
-        cardItem,
-        api.likeCard(cardItem),
-        api.dislikeCard(cardItem),
-        {
-          cardSelector: '#card-template',
-          handleCardClick: (evt) => {
-            popupWithImage.open(evt);
-          },
-          confirmDelete: () => {
-            const confirmPopup = new popupDeleteCard(
-              '#popup-delete',
-              api.deletePhoto(cardItem),
-              cardItem
-            );
-            confirmPopup.open();
-          },
-        }
-      );
-      const cardElement = card.generateCard(api.getUserInfo());
-      cardList.addItem(cardElement);
+      const card = new Card(cardItem, api, {
+        cardSelector: '#card-template',
+        handleCardClick: (evt) => {
+          popupWithImage.open(evt);
+        },
+        confirmDelete: () => {
+          const confirmPopup = new popupDeleteCard(
+            '#popup-delete',
+            api.deletePhoto(cardItem._id),
+            cardItem
+          );
+          confirmPopup.open();
+        },
+      });
+      api.getUserInfo().then((data) => {
+        const cardElement = card.generateCard(data);
+        cardList.addItem(cardElement);
+      });
     },
   },
   '.elements'
@@ -67,9 +65,17 @@ api.getUserInfo().then((data) => {
 //Создать экземпляр класса PopupWithForm для userPopup
 const popupWithUserForm = new PopupWithForm('#user-popup', {
   handleFormSubmit: () => {
+    popupWithUserForm.renderLoading(true);
     const inputValues = popupWithUserForm.getInputValues();
-    userInfo.setUserInfo(api.updateUserInfo(inputValues));
-    popupWithUserForm.close();
+    api
+      .updateUserInfo(inputValues)
+      .then((data) => {
+        userInfo.setUserInfo(data);
+      })
+      .finally(() => {
+        popupWithUserForm.renderLoading(false);
+        popupWithUserForm.close();
+      });
   },
   setInputValues: () => {
     const formElement = document.querySelector('#user-form');
@@ -85,17 +91,41 @@ buttonEditUserInfo.addEventListener('click', () => {
   popupWithUserForm.open();
 });
 
+//Создать экземпляр класса PopupWithForm для avatarPopup
+const popupWithAvatarForm = new PopupWithForm('#avatar-popup', {
+  handleFormSubmit: () => {
+    popupWithAvatarForm.renderLoading(true);
+    const inputValues = popupWithAvatarForm.getInputValues();
+    api
+      .updateUserAvatar(inputValues)
+      .then((data) => {
+        userInfo.setNewAvatar(data);
+      })
+      .finally(() => {
+        popupWithAvatarForm.renderLoading(false);
+        popupWithAvatarForm.close();
+      });
+  },
+  setInputValues: () => {
+    const formElement = document.querySelector('#avatar-form');
+    formElement.elements.url.value = '';
+  },
+});
+
+//Открыть userPopup
+buttonChangeAvatar.addEventListener('click', () => {
+  popupWithAvatarForm.open();
+});
+
 //Создать экземпляр класса PopupWithForm для photoPopup
 const popupWithPhotoForm = new PopupWithForm('#photo-popup', {
   handleFormSubmit: () => {
+    popupWithPhotoForm.renderLoading(true);
     const inputValues = popupWithPhotoForm.getInputValues();
-    api.addNewCard(inputValues).then((data) => {
-
-      const newCard = new Card(
-        data,
-        api.likeCard(data),
-        api.dislikeCard(data),
-        {
+    api
+      .addNewCard(inputValues)
+      .then((data) => {
+        const newCard = new Card(data, api, {
           cardSelector: '#card-template',
           handleCardClick: (evt) => {
             popupWithImage.open(evt);
@@ -104,18 +134,21 @@ const popupWithPhotoForm = new PopupWithForm('#photo-popup', {
           confirmDelete: () => {
             const confirmPopup = new popupDeleteCard(
               '#popup-delete',
-              api.deletePhoto(data),
+              api.deletePhoto(data._id),
               data
             );
             confirmPopup.open();
           },
-        }
-      );
-      const newCardElement = newCard.generateCard(api.getUserInfo());
-      console.log(newCardElement);
-      cardList.addItem(newCardElement);
-    });
-    popupWithPhotoForm.close();
+        });
+        api.getUserInfo().then((data) => {
+          const newCardElement = newCard.generateCard(data);
+          cardList.addItem(newCardElement);
+        });
+      })
+      .finally(() => {
+        popupWithPhotoForm.renderLoading(false);
+        popupWithPhotoForm.close();
+      });
   },
   setInputValues: () => {
     const formElement = document.querySelector('#photo-form');

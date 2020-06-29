@@ -11,6 +11,7 @@
 @import url('__input-error/popup__input-error.css');
 @import url('__input-error/_active/popup__input-error_active.css');
 @import url('__button/_submit/popup__button_submit.css');
+@import url('__button/_submit/_loading/popup__button_submit_loading.css');
 
 .popup {
   width: 100%;

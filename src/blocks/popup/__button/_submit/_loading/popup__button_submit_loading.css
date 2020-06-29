@@ -1,0 +1,15 @@
+@keyframes loading {
+  0% {
+    color: #fff;
+  }
+  50% {
+    color: #666;
+  }
+  100% {
+    color: #fff;
+  }
+}
+
+.popup__button_submit_loading:enabled {
+  animation: loading 2s ease-in-out infinite;
+}

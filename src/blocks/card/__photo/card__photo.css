@@ -8,7 +8,7 @@
   -webkit-border-radius: 10px 10px 0 0;
   -moz-border-radius: 10px 10px 0 0;
   object-fit: cover;
-  object-position: top;
+  object-position: center;
 }
 
 .card__photo:hover {

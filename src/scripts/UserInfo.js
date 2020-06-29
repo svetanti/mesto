@@ -9,8 +9,12 @@ export default class UserInfo {
   }
 
   setUserInfo(data) {
-      this._userName.textContent = data.name;
-      this._userInfo.textContent = data.about;
-      this._userAvatar.src = data.avatar;
+    this._userName.textContent = data.name;
+    this._userInfo.textContent = data.about;
+    this._userAvatar.src = data.avatar;
+  }
+
+  setNewAvatar(data) {
+    this._userAvatar.src = data.avatar;
   }
 }

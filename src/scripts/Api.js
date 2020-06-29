@@ -4,116 +4,83 @@ class Api {
     this._headers = options.headers;
   }
 
-  //Получить начальные данные пользователя
-  getUserInfo() {
-    return fetch(`${this._url}users/me`, { headers: this._headers })
+  //Отправить запрос
+  _sendRequest(path, parameters) {
+    return fetch(`${this._url}${path}`, parameters)
       .then((res) => {
         if (res.ok) {
           return res.json();
         }
         return Promise.reject(res.status);
       })
-      .catch((err) => console.log(`Всё пошло не так: ${err}`));
+      .catch((err) => console.log(`Что-то пошло не так: ${err}`));
   }
 
-  //Получить начальные карточки
+  //Получить данные пользователя
+  getUserInfo() {
+    return this._sendRequest(`users/me`, {
+      headers: this._headers,
+    });
+  }
+
+  //Получить карточки
   getInitialCards() {
-    return fetch(`${this._url}cards`, { headers: this._headers })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => console.log(`Всё снова пошло не так: ${err}`));
+    return this._sendRequest(`cards`, { headers: this._headers });
   }
 
   //Обновить информацию о пользователе
   updateUserInfo(newUserInfo) {
-    return fetch(`${this._url}users/me`, {
+    return this._sendRequest(`users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         name: newUserInfo.name,
         about: newUserInfo.about,
       }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => console.log(`Всё сломалось, ищем ошибку: ${err}`));
+    });
   }
 
   //Добавить новую карточку
   addNewCard(newCard) {
-    return fetch(`${this._url}cards`, {
+    return this._sendRequest(`cards`, {
       method: 'POST',
       body: JSON.stringify({
         name: newCard.name,
         link: newCard.link,
       }),
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => console.log(`Ничего не работает: ${err}`));
+    });
   }
 
-  //Отобразить количество лайков
-  likeCard(card) {
-    return fetch(`${this._url}cards/likes/${card._id}`, {
+  //Лайк
+  likeCard(id) {
+    return this._sendRequest(`cards/likes/${id}`, {
       method: 'PUT',
-      body: JSON.stringify({
-        likes: card.likes,
-      }),
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => console.log(`Не работает: ${err}`));
+    });
   }
 
-  dislikeCard(card) {
-    return fetch(`${this._url}cards/likes/${card._id}`, {
+  //Дизлайк
+  dislikeCard(id) {
+    return this._sendRequest(`cards/likes/${id}`, {
       method: 'DELETE',
-      body: JSON.stringify({
-        likes: card.likes,
-      }),
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => console.log(`Ошбика: ${err}`));
+    });
   }
 
-  deletePhoto(card) {
-    return fetch(`${this._url}cards/${card._id}`, {
+  deletePhoto(id) {
+    return this._sendRequest(`cards/${id}`, {
       method: 'DELETE',
-      body: JSON.stringify(card),
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => console.log(`Всё пропало! ${err}`));
+    });
+  }
+
+  updateUserAvatar(avatar) {
+    return this._sendRequest(`users/me/avatar`, {
+      method: 'PATCH',
+      body: JSON.stringify({ avatar: avatar.url }),
+      headers: this._headers,
+    });
   }
 }
 
