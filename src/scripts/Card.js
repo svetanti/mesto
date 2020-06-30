@@ -1,9 +1,5 @@
 export default class Card {
-  constructor(
-    data,
-    api,
-    { cardSelector, handleCardClick, confirmDelete }
-  ) {
+  constructor(data, api, { cardSelector, handleCardClick, confirmDelete }) {
     this._api = api;
     this._cardSelector = cardSelector;
     this._name = data.name;
@@ -80,15 +76,21 @@ export default class Card {
     const counter = this._cardItem.querySelector('.card__counter');
 
     if (!likeButton.classList.contains('card__like_active')) {
-      this._api.likeCard(this._id).then((data) => {
-        likeButton.classList.add('card__like_active');
-        counter.textContent = `${data.likes.length}`;
-      });
+      this._api
+        .likeCard(this._id)
+        .then((data) => {
+          likeButton.classList.add('card__like_active');
+          counter.textContent = `${data.likes.length}`;
+        })
+        .catch((err) => console.log(`Что-то пошло не так: ${err}`));
     } else {
-      this._api.dislikeCard(this._id).then((data) => {
-        likeButton.classList.remove('card__like_active');
-        counter.textContent = `${data.likes.length}`;
-      });
+      this._api
+        .dislikeCard(this._id)
+        .then((data) => {
+          likeButton.classList.remove('card__like_active');
+          counter.textContent = `${data.likes.length}`;
+        })
+        .catch((err) => console.log(`Что-то пошло не так: ${err}`));
     }
   }
 }

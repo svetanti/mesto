@@ -1,4 +1,4 @@
-class Api {
+export default class Api {
   constructor(options) {
     this._url = options.baseUrl;
     this._headers = options.headers;
@@ -6,14 +6,12 @@ class Api {
 
   //Отправить запрос
   _sendRequest(path, parameters) {
-    return fetch(`${this._url}${path}`, parameters)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
-      })
-      .catch((err) => console.log(`Что-то пошло не так: ${err}`));
+    return fetch(`${this._url}${path}`, parameters).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res.status);
+    });
   }
 
   //Получить данные пользователя
@@ -68,6 +66,7 @@ class Api {
     });
   }
 
+  //Удалить фото
   deletePhoto(id) {
     return this._sendRequest(`cards/${id}`, {
       method: 'DELETE',
@@ -75,6 +74,7 @@ class Api {
     });
   }
 
+  //Обновить аватар
   updateUserAvatar(avatar) {
     return this._sendRequest(`users/me/avatar`, {
       method: 'PATCH',
@@ -83,11 +83,3 @@ class Api {
     });
   }
 }
-
-export const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/',
-  headers: {
-    authorization: 'b40f325a-73c8-493d-8833-d885268eb953',
-    'Content-Type': 'application/json',
-  },
-});

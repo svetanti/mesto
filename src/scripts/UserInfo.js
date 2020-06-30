@@ -8,12 +8,22 @@ export default class UserInfo {
     this._userAvatar = document.querySelector(this._userAvatarSelector);
   }
 
+  //Получить данные пользователя
+  getUserInfo() {
+    this._userData = {};
+    this._userData.name = this._userName.textContent;
+    this._userData.about = this._userInfo.textContent;
+    return this._userData;
+  }
+
+  //Установить данные пользователя
   setUserInfo(data) {
     this._userName.textContent = data.name;
     this._userInfo.textContent = data.about;
     this._userAvatar.src = data.avatar;
   }
 
+  //Установить новый аватар
   setNewAvatar(data) {
     this._userAvatar.src = data.avatar;
   }

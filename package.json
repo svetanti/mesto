@@ -4,7 +4,8 @@
   "description": "---",
   "main": "index.js",
   "dependencies": {
-    "corejs": "^1.0.0"
+    "core-js": "^1.0.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -29,7 +30,7 @@
     "prettier": "^2.0.5"
   },
   "scripts": {
-    "build": "rm -rf dist && webpack",
+    "build": "rimraf dist && webpack",
     "dev": "webpack-dev-server --watch --open"
   },
   "repository": {

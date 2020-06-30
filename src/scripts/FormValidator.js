@@ -36,17 +36,16 @@ export default class FormValidator {
   }
 
   //Установить состояние кнопки
-  _setButtonState(buttonElement, flag) {
-    if (flag === true) {
-      buttonElement.setAttribute('disabled', true);
-    } else {
-      buttonElement.disabled = false;
-    }
+  setInitialButtonState(isDisabled) {
+    const buttonElement = this._formElement.querySelector(
+      this._submitButtonSelector
+    );
+    buttonElement.disabled = isDisabled;
   }
 
   //Переключить состояние кнопки
-  _toggleButtonState(inputList, buttonElement) {
-    this._setButtonState(buttonElement, this._findInvalidInput(inputList));
+  _toggleButtonState(inputList) {
+    this.setInitialButtonState(this._findInvalidInput(inputList));
   }
 
   //Проверить валидность поля
@@ -63,15 +62,22 @@ export default class FormValidator {
     const inputList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector)
     );
-    const buttonElement = this._formElement.querySelector(
-      this._submitButtonSelector
-    );
-    this._toggleButtonState(inputList, buttonElement);
+    this._toggleButtonState(inputList);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState(inputList);
       });
+    });
+  }
+
+  //Установить начальное состояние ошибок
+  setDefaultErrorState() {
+    const inputList = Array.from(
+      this._formElement.querySelectorAll(this._inputSelector)
+    );
+    inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
     });
   }
 

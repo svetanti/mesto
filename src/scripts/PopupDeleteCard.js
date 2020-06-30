@@ -8,15 +8,17 @@ export default class PopupDeleteCard extends Popup {
     this._card = card;
   }
 
+  //Установить слушатели событий
   _setEventListeners() {
     super._setEventListeners();
-    const deleteHandler = () => {
-        this._api.then(() => {
-          document.getElementById(this._card._id).remove();
-        });
+    const deleteHandler = (evt) => {
+      evt.preventDefault();
+      this._api.then(() => {
+        document.getElementById(this._card._id).remove();
+      });
 
-        this._formElement.removeEventListener('submit', deleteHandler);
-        this.close();
+      this._formElement.removeEventListener('submit', deleteHandler);
+      this.close();
     };
     this._formElement.addEventListener('submit', deleteHandler);
   }
