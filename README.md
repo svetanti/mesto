@@ -27,7 +27,7 @@
 * API
 
 ## Ссылка на проект
-https://svetanti.github.io/mesto/
+https://svetanti.github.io/mesto-vanilla-js/
 
 # Project 9: Mesto
 ---
@@ -59,4 +59,4 @@ The project is connected to a server. The user can change an avatar. Aslo added 
 * API
 
 ## URL
-https://svetanti.github.io/mesto/
+https://svetanti.github.io/mesto-vanilla-js/
