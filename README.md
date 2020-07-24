@@ -42,7 +42,7 @@
 
 ## Ссылка на проект
 
-https://svetanti.github.io/mesto-vanilla-js/
+https://svetanti.github.io/mesto/
 
 # Mesto. The single page application
 
@@ -88,4 +88,4 @@ The project is connected to a server. The user can change an avatar. Aslo added 
 
 ## URL
 
-https://svetanti.github.io/mesto-vanilla-js/
+https://svetanti.github.io/mesto/
